@@ -3,6 +3,7 @@ body {
     padding: 0;
     font-family: Arial, sans-serif;
     background: url("../images/logobg.png") no-repeat center center fixed;
+    background-size: cover;
 }
 
 .login-container {
@@ -74,6 +75,11 @@ h1 {
     left: 45px;
     top: 10px;
     color: #002f49;
+}
+
+.login-icon {
+    width: 16px;
+    filter: invert(0%) sepia(5%) saturate(5000%) hue-rotate(150deg) brightness(100%) contrast(130%);
 }
 
 input {

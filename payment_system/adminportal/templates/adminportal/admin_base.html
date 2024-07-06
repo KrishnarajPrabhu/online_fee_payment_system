@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< Updated upstream
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -68,6 +69,56 @@
         </div>
         
         <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+=======
+  <head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+    {% block head %} {% endblock %}
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="navigation">
+        <div class="nav-logo">
+          <img class="logo" src="{% static 'images/logo.png' %}" alt="logo"/>
+        </div>
+        <div class="nav-row">
+          <img src="{% static 'images/dashboard.png' %}" alt="logo"/>
+          <a class="nav" href="#">Dashboard</a>
+        </div>
+        <div class="nav-row">
+          <img src="{% static 'images/students.png' %}" alt="logo"/>
+          <a class="nav" href="#">Classes & Students</a>
+        </div>
+        <div class="nav-row">
+          <img src="{% static 'images/fee.png' %}" alt="logo"/>
+          <a class="nav" href="#">Set Fee Particular</a>
+        </div>
+        <div class="nav-row">
+          <img src="{% static 'images/history.png' %}" alt="logo"/>
+          <a class="nav" href="#">Payment History</a>
+        </div>
+        <div class="nav-row">
+          <img src="{% static 'images/queries.png' %}" alt="logo"/>
+          <a class="nav" href="#">Queries</a>
+        </div>
+        <div class="nav-row">
+          <img src="{% static 'images/acc_settings.png' %}" alt="logo"/>
+          <a class="nav" href="#">Account Settings</a>
+        </div>
+        <div class="nav-row">
+          <img src="{% static 'images/logout.png' %}" alt="logo" />
+          <form class="logout" action="{% url 'do_logout' %}" method="post">
+            {% csrf_token %}
+            <button class="logout-btn" type="submit">Logout</button>
+          </form>
+        </div>
+      </div>
+>>>>>>> Stashed changes
 
         <script>
             window.addEventListener("pageshow", function (event) {
