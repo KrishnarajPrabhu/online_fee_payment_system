@@ -74,12 +74,11 @@ h1 {
     position: absolute;
     left: 45px;
     top: 10px;
-    color: #002f49;
 }
 
 .login-icon {
     width: 16px;
-    filter: invert(0%) sepia(5%) saturate(5000%) hue-rotate(150deg) brightness(100%) contrast(130%);
+    filter: invert(10%) sepia(3%) saturate(5000%) hue-rotate(150deg) brightness(100%) contrast(130%);
 }
 
 input {

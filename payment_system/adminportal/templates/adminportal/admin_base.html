@@ -1,75 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<<<<<<< Updated upstream
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
-        <meta http-equiv="Pragma" content="no-cache"/>
-        <meta http-equiv="Expires" content="0"/>
-        {% block head %} {% endblock %}
-    </head>
-
-    <body>
-        <div class="container">
-            <div class="navigation">
-                <div class="nav-logo">
-                    <img class="logo" src="{% static 'images/logo.png' %}" alt="logo">
-                </div>
-                <div class="nav-row">
-                    <img src="{% static 'images/dashboard.png' %}" alt="logo">
-                    <a class="nav" href="#">Dashboard</a>
-                </div>
-                <div class="nav-row">
-                    <img src="{% static 'images/students.png' %}" alt="logo">
-                    <a class="nav" href="#">Classes & Students</a>
-                </div>
-                <div class="nav-row">
-                    <img src="{% static 'images/fee.png' %}" alt="logo">
-                    <a class="nav" href="#">Set Fee Particular</a>
-                </div>
-                <div class="nav-row">
-                    <img src="{% static 'images/history.png' %}" alt="logo">
-                    <a class="nav" href="#">Payment History</a>
-                </div>
-                <div class="nav-row">
-                    <img src="{% static 'images/queries.png' %}" alt="logo">
-                    <a class="nav" href="#">Queries</a>
-                </div>
-                <div class="nav-row">
-                    <img src="{% static 'images/acc_settings.png' %}" alt="logo">
-                    <a class="nav" href="#">Account Settings</a>
-                </div>
-                <div class="nav-row">
-                    <img src="{% static 'images/logout.png' %}" alt="logo">
-                    <form class="logout" action="{% url 'do_logout' %}" method="post">
-                        {% csrf_token %}
-                        <button class="logout-btn" type="submit">Logout</button>
-                    </form>
-                </div>  
-            </div>
-            
-            <div class="out-nav">
-                <div class="collar">
-                    <div class="left-sec">
-                        <h2>Welcome, Admin</h2>
-                    </div>
-                    <div class="right-sec">
-                        <p>Date: {{current_date}}</p>
-                    </div>
-                </div>
-                
-                <div class="content-out">
-                    {% block content %}
-                    {% endblock %}
-                </div>
-            </div>
-        </div>
-        
-        <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
-=======
   <head>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -77,6 +8,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
     <meta http-equiv="Pragma" content="no-cache"/>
     <meta http-equiv="Expires" content="0"/>
+    <link rel="stylesheet" href="{% static 'css/admin/admin_base.css' %}"/>
     {% block head %} {% endblock %}
   </head>
 
@@ -88,19 +20,19 @@
         </div>
         <div class="nav-row">
           <img src="{% static 'images/dashboard.png' %}" alt="logo"/>
-          <a class="nav" href="#">Dashboard</a>
+          <a class="nav" href="{% url 'adm_dashboard' %}">Dashboard</a>
         </div>
         <div class="nav-row">
           <img src="{% static 'images/students.png' %}" alt="logo"/>
-          <a class="nav" href="#">Classes & Students</a>
+          <a class="nav" href="{% url 'student_list' %}">Classes & Students</a>
         </div>
         <div class="nav-row">
           <img src="{% static 'images/fee.png' %}" alt="logo"/>
-          <a class="nav" href="#">Set Fee Particular</a>
+          <a class="nav" href="{% url 'payment_setup' %}">Fee Payment Setup</a>
         </div>
         <div class="nav-row">
           <img src="{% static 'images/history.png' %}" alt="logo"/>
-          <a class="nav" href="#">Payment History</a>
+          <a class="nav" href="{% url 'payment_history' %}">Payment History</a>
         </div>
         <div class="nav-row">
           <img src="{% static 'images/queries.png' %}" alt="logo"/>
@@ -118,17 +50,110 @@
           </form>
         </div>
       </div>
->>>>>>> Stashed changes
 
-        <script>
-            window.addEventListener("pageshow", function (event) {
-              if (
-                event.persisted ||
-                (window.performance && window.performance.navigation.type === 2)
-              ) {
-                window.location.reload();
-              }
+      <div class="out-nav">
+        <div class="collar">
+          <div class="left-sec">
+            <h2>Welcome, Admin</h2>
+          </div>
+          <div class="right-sec">
+            <p>Date: {{current_date}}</p>
+          </div>
+        </div>
+
+        <div class="content-out">{% block content %} {% endblock %}</div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+
+    <script>
+      //To get the course details from the backend.
+      addEventListener("DOMContentLoaded", () => {
+        fetch("/adm/getCourse/")
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            let select_element = document.getElementById("course");
+
+            data.forEach((element) => {
+              let op = document.createElement("option");
+              op.value = element["course_ID"];
+              op.textContent = element["course_name"];
+              select_element.appendChild(op);
             });
-          </script>
-    </body>
+
+            let another_select_element =
+              document.getElementById("another_course");
+            data.forEach((element) => {
+              let op = document.createElement("option");
+              op.value = element["course_ID"];
+              op.textContent = element["course_name"];
+              another_select_element.appendChild(op);
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      });
+
+      //For uploading student data into the backend.
+      document
+        .getElementById("studentform")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          const form = document.getElementById("studentform");
+          const data = new FormData(form);
+          fetch("/adm/upload/", {
+            method: "POST",
+            body: data,
+          })
+            .then((response) => {
+              return response.json();
+            })
+            .then((data) => {
+              alert(data["message"]);
+              window.location.reload();
+            })
+            .catch((error) => {
+              alert(data["mesage"]);
+              window.location.reload();
+            });
+        });
+
+      //for getting registered student data.
+
+      document
+        .getElementById("studentDetails")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          const form = document.getElementById("studentDetails");
+          const data = new FormData(form);
+          fetch("/adm/studentData/", {
+            method: "POST",
+            body: data,
+          })
+            .then((response) => {
+              return response.json();
+            })
+            .then((data) => {
+              console.log(data);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        });
+
+      //To handle page reload
+      window.addEventListener("pageshow", function (event) {
+        if (
+          event.persisted ||
+          (window.performance && window.performance.navigation.type === 2)
+        ) {
+          window.location.reload();
+        }
+      });
+    </script>
+  </body>
 </html>

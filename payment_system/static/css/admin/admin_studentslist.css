@@ -1,0 +1,135 @@
+.content {
+    width: 98%;
+    padding-bottom:20px;
+    flex: 1 1 auto; 
+    overflow-y: auto; 
+    overflow-x: auto;
+    font-weight: 600;
+    color: #4372ab;
+    background-color: #ffffff;
+    margin: 20px 0;
+}
+
+.content h3 {
+    margin-top: 0;
+    margin-right: 0;
+    background-color: #5a91c8;
+    color: #ffffff;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    border-radius: 5px;
+}
+
+.contain {
+    padding: 5px 10px 10px 20px;
+}
+
+form .form-group,
+form .button-group{
+    display: inline-block;
+}
+
+.content select {
+    margin-top: 0;
+    height: 30px;
+    background: none;
+    padding: 0 5px;
+    box-sizing: border-box;
+    border: 2px solid #aaa;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    color: #3a5a86;
+    font-size: 16px;
+}
+
+.content option {
+    padding: 50px 20px;
+    font-size: 16px;
+    color: #000;
+}
+
+.button-group button {
+    height: 30px;
+    width: 80px;
+    border-style: none;
+    border-radius: 5px;
+    color: #ffffff;
+    background-color: #40b1d6;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.form-group-upload input {
+    font-size: 14px;
+}
+
+.button-group-upload button {
+    margin-top: 10px                                                                                                                                                                                                                                                                                                                                                                                                                        ;
+    height: 30px;
+    width: 80px;                                                                                                                            
+    border-style: none;
+    border-radius: 5px;
+    color: #ffffff;
+    background-color: #459651;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.display-table {
+    width: 99%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.display-table th {
+    border: 2px solid #c6d7f2;
+    padding: 5px;
+    text-align: center;
+    background-color: #82acd6;
+    color: #fdfeff;
+    height: 30px;
+}
+
+.display-table td {
+    border: 2px solid #d7e3ff;
+    padding: 5px;
+    text-align: center;
+    background-color: #eff2ff;
+    color: #5e9acb;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+td .edit-button {
+    height: 26px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:#55a26e;
+    margin: 0 5px;
+}
+
+.edit-button a {
+    text-decoration: none;
+    color: #f6f6f6;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.delete-button button {
+    cursor: pointer;
+    background-color: #d46767;
+    color: #f6f6f6;
+    height: 26px;
+    font-size: 1em;
+    border: none;
+    border-radius: 2px;
+}

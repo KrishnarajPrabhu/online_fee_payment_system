@@ -1,13 +1,46 @@
 from django.shortcuts import render
-import datetime
+from datetime import datetime
+from io import BytesIO
+import pandas as pd
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.db import connection
+from .models import Computer_Science_and_Engineering
+from .models import Information_Science_and_Engineering
+from .models import Course
 
-def dashboard(request):
-    today = datetime.datetime.now()
-    current_date = today.strftime('%d-%m-%Y')
-<<<<<<< Updated upstream
-    return render(request, 'adminportal/admin_dash.html', {'current_date' : current_date})
-=======
-    return render(request, 'adminportal/admin_dash.html', {'current_date': current_date, 'range': range(10)})
+Model_Mapping = {
+    'CSE01': Computer_Science_and_Engineering,
+    'ISE02': Information_Science_and_Engineering
+}
+
+# for retuning admin dashboard(template)
+def adm_dashboard(request):
+    context = {
+        'current_date': datetime.now().strftime('%d-%m-%Y'),
+    }
+    return render(request, 'adminportal/admin_dash.html', context)
+
+#classes and students
+def student_list(request):
+    context = {
+        'current_date': datetime.now().strftime('%d-%m-%Y'),
+    }
+    return render(request, 'adminportal/admin_studentlist.html', context)
+
+#fee payment setup
+def payment_setup(request):
+    context = {
+        'current_date': datetime.now().strftime('%d-%m-%Y'),
+    }
+    return render(request, 'adminportal/admin_paymentsetup.html', context)
+
+#payment history
+def payment_history(request):
+    context = {
+        'current_date': datetime.now().strftime('%d-%m-%Y'),
+    }
+    return render(request, 'adminportal/admin_paymenthistory.html', context)
 
 # API that sends course details
 
@@ -74,4 +107,3 @@ def addStudent(request):
                     phone=int(row['phone'])
                 )
             return JsonResponse({'message': 'Details are uploaded successfully'}, status=200)
->>>>>>> Stashed changes
