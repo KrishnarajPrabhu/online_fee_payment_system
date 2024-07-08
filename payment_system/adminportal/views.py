@@ -43,8 +43,6 @@ def payment_history(request):
     return render(request, 'adminportal/admin_paymenthistory.html', context)
 
 # API that sends course details
-
-
 def course(request):
     course = Course.objects.all().values('course_name', 'course_ID')
     data = list(course)
@@ -62,8 +60,6 @@ def studentDetails(request):
     return JsonResponse(data, safe=False)
 
 # To process sheet submitted by the user
-
-
 @csrf_exempt
 def addStudent(request):
     if request.method == 'POST':

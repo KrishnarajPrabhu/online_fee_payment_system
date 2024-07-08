@@ -41,10 +41,17 @@ body {
 }
 
 .nav-row img {
-    margin-left: 5px;
     padding-left: 10px;
     height: 25px;
     filter: invert(91%) sepia(8%) saturate(2817%) hue-rotate(183deg) brightness(104%) contrast(100%);
+}
+
+.nav-row:hover {
+    transform: scale(1.05);
+    transition: transform ease 0.4s;
+    background-color: #f2faff;
+    border-radius: 10px;
+    width: 100%;
 }
 
 .nav-row a {
@@ -54,13 +61,6 @@ body {
     font-size: 18px;
     margin-left: 0;
     width: 100%;
-}
-
-.nav-row:hover {
-    transform: scale(1.05);
-    transition: transform ease 0.4s;
-    background-color: #ffffff;
-    border-radius: 10px;
 }
 
 .nav-row:hover img {
@@ -133,6 +133,89 @@ body {
     overflow-x: auto;
 }
 
+.content {
+    width: 98%;
+    padding-bottom:20px;
+    flex: 1 1 auto; 
+    overflow-y: auto; 
+    overflow-x: auto;
+    font-weight: 600;
+    color: #4372ab;
+    background-color: #ffffff;
+    margin: 20px 0;
+}
+
+.content h3 {
+    margin-top: 0;
+    margin-right: 0;
+    background-color: #5a91c8;
+    color: #ffffff;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    border-radius: 5px;
+}
+
+.contain {
+    padding: 5px 10px 10px 20px;
+}
+
+form .form-group,
+form .button-group{
+    color: #3a5a86;
+}
+
+.content select {
+    margin-top: 0;
+    height: 30px;
+    background: none;
+    padding: 0 5px;
+    box-sizing: border-box;
+    border: 2px solid #aaa;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.content option {
+    padding: 0 20px;
+    font-size: 16px;
+    color: #000;
+}
+
+table {
+    width: 99%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+table th {
+    border: 2px solid #c7d8cd;
+    background-color: #51a95b;
+    padding: 0 10px;
+    height: 40px;
+    text-align: center;
+    color: #fff;
+}
+
+table tbody {
+    background-color: #f8fffc;
+}
+
+table tbody tr:hover {
+    background-color: #e8f2ea;
+}
+
+table td {
+    border: 2px solid #c8dbcd;
+    text-align: center;
+    color: #556f6a;
+    height: 36px;
+    font-weight: 600;
+    font-size: 15px;
+}
 
 
 

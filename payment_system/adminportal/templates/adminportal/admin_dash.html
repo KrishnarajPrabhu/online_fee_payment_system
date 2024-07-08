@@ -2,10 +2,83 @@
 {% load static %} 
 {% block head %}
 <title>Dashboard</title>
-<link rel="stylesheet" href="{% static 'css/admin/admin_studentslist.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/admin/admin_dash.css' %}"/>
 {% endblock %} 
 {% block content %}
 <div class="content">
-  <h1>dash</h1>
+  <h3>Payment Links Dashboard</h3>
+  <div class="contain">
+    <div class="form-group">
+      <label for="rowsToShow">Show Rows:</label>
+      <select id="rowsToShow" name="rowsToShow" onchange="updateTable()">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option value="all">All</option>
+      </select>
+    </div>
+    <table>
+      <thead>
+        <tr>
+            <th>Sl. No</th>
+            <th style="width: 300px; text-align: left; padding-left: 10px;">Fee Item Name</th>
+            <th style="width: 250px; text-align: left;">Course(s)</th>
+            <th>Start Date</th>
+            <th>Due Date</th>
+            <th style="text-align: right;">Amount (INR)</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <script>
+          //const paymentLinks = {{ payment_links|safe }}; paymentLinks to be sent as context from view
+          const paymentLinks = [
+              { id: 1, feeName: "Tuition Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 1000.00 },
+              { id: 2, feeName: "Library Fee", course:"CSE, ISE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 200.00 },
+              { id: 3, feeName: "Sports Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 150.00 },
+              { id: 4, feeName: "Lab Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 300.00 },
+              { id: 5, feeName: "Hostel Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 500.00 },
+              { id: 6, feeName: "Exam Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 250.00 },
+              { id: 7, feeName: "Tuition Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 1000.00 },
+              { id: 8, feeName: "Library Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 200.00 },
+              { id: 9, feeName: "Tuition Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 1000.00 },
+              { id: 10, feeName: "Library Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 200.00 },
+              { id: 11, feeName: "Sports Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 150.00 },
+              { id: 12, feeName: "Lab Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 300.00 },
+              { id: 13, feeName: "Hostel Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 500.00 },
+              { id: 14, feeName: "Exam Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 250.00 },
+              { id: 15, feeName: "Tuition Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 1000.00 },
+              { id: 16, feeName: "Library Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 200.00 },
+          ];
+      
+          function updateTable() {
+              const rowsToShow = document.getElementById('rowsToShow').value;
+              const tableBody = document.getElementById('tableBody');
+              tableBody.innerHTML = '';
+      
+              let rows = paymentLinks;
+              if (rowsToShow !== 'all') {
+                  rows = paymentLinks.slice(0, Number(rowsToShow));
+              }
+      
+              rows.forEach((link, index) => {
+                  const row = document.createElement('tr');
+                  row.innerHTML = `
+                      <td><a href="payment_details.html?id=${link.id}">${index + 1}</a></td>
+                      <td><a href="payment_details.html?id=${link.id}" style="text-align: left; padding: 0 10px;">${link.feeName}</a></td>
+                      <td><a href="payment_details.html?id=${link.id}" style="text-align: left; padding: 0 10px;">${link.course}</a></td>
+                      <td><a href="payment_details.html?id=${link.id}">${link.startDate}</a></td>
+                      <td><a href="payment_details.html?id=${link.id}">${link.dueDate}</a></td>
+                      <td><a href="payment_details.html?id=${link.id}" style="text-align: right; padding: 0 10px;">${link.amount.toFixed(2)}</a></td>
+                  `;
+                  tableBody.appendChild(row);
+              });
+          }
+      
+          document.addEventListener('DOMContentLoaded', updateTable);
+        </script>
+      </tbody>
+    </table>
+  </div>
 </div>
 {% endblock %}
