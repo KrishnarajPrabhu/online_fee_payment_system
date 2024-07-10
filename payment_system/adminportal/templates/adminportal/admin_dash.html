@@ -1,85 +1,213 @@
 {% extends 'adminportal/admin_base.html' %} {% load static %} {% block head %}
-<title>Admin - Dashboard</title>
+<title>Dashboard</title>
 <link rel="stylesheet" href="{% static 'css/admin/admin_dash.css' %}" />
 {% endblock %} {% block content %}
-<h3>Course Selection and File Import</h3>
 <div class="content">
-  <form id="studentDetails">
+  <h3>Payment Links Dashboard</h3>
+  <div class="contain">
     <div class="form-group">
-      <label for="course">Select Course:</label>
-      <select id="course" name="choice">
-        <option value="empty">Select Course</option>
+      <label for="rowsToShow">Show Rows:</label>
+      <select id="rowsToShow" name="rowsToShow" onchange="updateTable()">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+        <option value="all">All</option>
       </select>
     </div>
-    <div class="button-group">
-      <button id="searchButton">Search</button>
-    </div>
-  </form>
+    <table>
+      <thead>
+        <tr>
+          <th>Sl. No</th>
+          <th style="width: 300px; text-align: left; padding-left: 10px">
+            Fee Item Name
+          </th>
+          <th style="width: 250px; text-align: left">Course(s)</th>
+          <th>Start Date</th>
+          <th>Due Date</th>
+          <th style="text-align: right">Amount (INR)</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <script>
+          //const paymentLinks = {{ payment_links|safe }}; paymentLinks to be sent as context from view
+          const paymentLinks = [
+            {
+              id: 1,
+              feeName: "Tuition Fee",
+              course: "CSE",
+              startDate: "08-07-2024",
+              dueDate: "31-07-2024",
+              amount: 1000.0,
+            },
+            {
+              id: 2,
+              feeName: "Library Fee",
+              course: "CSE, ISE",
+              startDate: "08-07-2024",
+              dueDate: "31-07-2024",
+              amount: 200.0,
+            },
+            {
+              id: 3,
+              feeName: "Sports Fee",
+              course: "CSE",
+              startDate: "08-07-2024",
+              dueDate: "31-07-2024",
+              amount: 150.0,
+            },
+            {
+              id: 4,
+              feeName: "Lab Fee",
+              course: "CSE",
+              startDate: "08-07-2024",
+              dueDate: "31-07-2024",
+              amount: 300.0,
+            },
+            {
+              id: 5,
+              feeName: "Hostel Fee",
+              course: "CSE",
+              startDate: "08-07-2024",
+              dueDate: "31-07-2024",
+              amount: 500.0,
+            },
+            {
+              id: 6,
+              feeName: "Exam Fee",
+              course: "CSE",
+              startDate: "08-07-2024",
+              dueDate: "31-07-2024",
+              amount: 250.0,
+            },
+            {
+              id: 7,
+              feeName: "Tuition Fee",
+              course: "CSE",
+              startDate: "08-07-2024",
+              dueDate: "31-07-2024",
+              amount: 1000.0,
+            },
+            {
+              id: 8,
+              feeName: "Library Fee",
+              course: "CSE",
+              startDate: "08-07-2024",
+              dueDate: "31-07-2024",
+              amount: 200.0,
+            },
+            {
+              id: 9,
+              feeName: "Tuition Fee",
+              course: "CSE",
+              startDate: "08-07-2024",
+              dueDate: "31-07-2024",
+              amount: 1000.0,
+            },
+            {
+              id: 10,
+              feeName: "Library Fee",
+              course: "CSE",
+              startDate: "08-07-2024",
+              dueDate: "31-07-2024",
+              amount: 200.0,
+            },
+            {
+              id: 11,
+              feeName: "Sports Fee",
+              course: "CSE",
+              startDate: "08-07-2024",
+              dueDate: "31-07-2024",
+              amount: 150.0,
+            },
+            {
+              id: 12,
+              feeName: "Lab Fee",
+              course: "CSE",
+              startDate: "08-07-2024",
+              dueDate: "31-07-2024",
+              amount: 300.0,
+            },
+            {
+              id: 13,
+              feeName: "Hostel Fee",
+              course: "CSE",
+              startDate: "08-07-2024",
+              dueDate: "31-07-2024",
+              amount: 500.0,
+            },
+            {
+              id: 14,
+              feeName: "Exam Fee",
+              course: "CSE",
+              startDate: "08-07-2024",
+              dueDate: "31-07-2024",
+              amount: 250.0,
+            },
+            {
+              id: 15,
+              feeName: "Tuition Fee",
+              course: "CSE",
+              startDate: "08-07-2024",
+              dueDate: "31-07-2024",
+              amount: 1000.0,
+            },
+            {
+              id: 16,
+              feeName: "Library Fee",
+              course: "CSE",
+              startDate: "08-07-2024",
+              dueDate: "31-07-2024",
+              amount: 200.0,
+            },
+          ];
 
-  <br />
+          function updateTable() {
+            const rowsToShow = document.getElementById("rowsToShow").value;
+            const tableBody = document.getElementById("tableBody");
+            tableBody.innerHTML = "";
 
-  <form id="studentform" enctype="multipart/form-data">
-    <div class="form-group">
-      <label for="another_course">Select Course:</label>
-      <select id="another_course" name="choice">
-        <option value="empty">Select Course</option>
-      </select>
-    </div>
+            let rows = paymentLinks;
+            if (rowsToShow !== "all") {
+              rows = paymentLinks.slice(0, Number(rowsToShow));
+            }
 
-    <br />
-    <div class="form-group">
-      <label for="fileInput">Upload Excel File:</label>
-      <input type="file" id="fileInput" name="file" accept=".xls, .xlsx" />
-    </div>
-    <div class="button-group">
-      <button id="submitButton">Submit</button>
-    </div>
-  </form>
-</div>
+            rows.forEach((link, index) => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+                      <td><a href="payment_details.html?id=${link.id}">${
+                index + 1
+              }</a></td>
+                      <td><a href="payment_details.html?id=${
+                        link.id
+                      }" style="text-align: left; padding: 0 10px;">${
+                link.feeName
+              }</a></td>
+                      <td><a href="payment_details.html?id=${
+                        link.id
+                      }" style="text-align: left; padding: 0 10px;">${
+                link.course
+              }</a></td>
+                      <td><a href="payment_details.html?id=${link.id}">${
+                link.startDate
+              }</a></td>
+                      <td><a href="payment_details.html?id=${link.id}">${
+                link.dueDate
+              }</a></td>
+                      <td><a href="payment_details.html?id=${
+                        link.id
+                      }" style="text-align: right; padding: 0 10px;">${link.amount.toFixed(
+                2
+              )}</a></td>
+                  `;
+              tableBody.appendChild(row);
+            });
+          }
 
-<h3>List of Students</h3>
-<div class="content">
-  <h4 style="margin: 0">Course Name</h4>
-
-  <table class="display-table">
-    <thead>
-      <tr>
-        <th>Student ID</th>
-        <th>Name</th>
-        <th>Phone</th>
-        <th>Email</th>
-        <th>View/Edit</th>
-        <th>Delete</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr>
-        <td>2024CS001</td>
-        <td style="width: 250px; text-align: left; padding: 0 20px">
-          Akash Varghese
-        </td>
-        <td style="width: 200px">78945612305</td>
-        <td style="width: 300px">akashvarghese@gmail.com</td>
-        <td style="width: 60px">
-          <div class="edit-button">
-            <a href="#">View</a>
-          </div>
-        </td>
-        <td style="width: 70px">
-          <div class="delete-button">
-            <form action="#" method="#">
-              <button
-                type="submit"
-                onclick="return confirm('Are you sure you want to delete this Student?')"
-              >
-                Delete
-              </button>
-            </form>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+          document.addEventListener("DOMContentLoaded", updateTable);
+        </script>
+      </tbody>
+    </table>
+  </div>
 </div>
 {% endblock %}

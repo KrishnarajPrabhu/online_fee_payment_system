@@ -1,5 +1,5 @@
 from django.shortcuts import render
-import datetime
+from datetime import datetime
 from io import BytesIO
 import pandas as pd
 from django.http import JsonResponse
@@ -13,13 +13,42 @@ Model_Mapping = {
     'CSE01': Computer_Science_and_Engineering,
     'ISE02': Information_Science_and_Engineering
 }
+
 # for retuning admin dashboard(template)
 
 
-def dashboard(request):
-    today = datetime.datetime.now()
-    current_date = today.strftime('%d-%m-%Y')
-    return render(request, 'adminportal/admin_dash.html', {'current_date': current_date})
+def adm_dashboard(request):
+    context = {
+        'current_date': datetime.now().strftime('%d-%m-%Y'),
+    }
+    return render(request, 'adminportal/admin_dash.html', context)
+
+# classes and students
+
+
+def student_list(request):
+    context = {
+        'current_date': datetime.now().strftime('%d-%m-%Y'),
+    }
+    return render(request, 'adminportal/admin_studentlist.html', context)
+
+# fee payment setup
+
+
+def payment_setup(request):
+    context = {
+        'current_date': datetime.now().strftime('%d-%m-%Y'),
+    }
+    return render(request, 'adminportal/admin_paymentsetup.html', context)
+
+# payment history
+
+
+def payment_history(request):
+    context = {
+        'current_date': datetime.now().strftime('%d-%m-%Y'),
+    }
+    return render(request, 'adminportal/admin_paymenthistory.html', context)
 
 # API that sends course details
 
@@ -40,7 +69,13 @@ def studentDetails(request):
     data = list(student)
     return JsonResponse(data, safe=False)
 
+
 # To process sheet submitted by the user
+<< << << < HEAD
+
+
+== == == =
+>>>>>> > 59a0eff78a037ea0b91785a9c3e7169ccd074813
 
 
 @csrf_exempt
