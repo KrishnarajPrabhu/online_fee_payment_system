@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from adminportal.serializers import LoginSerializer
 from django.contrib.auth import logout
-from rest_framework.decorators import api_view
+from adminportal.models import login as logindb, Computer_Science_and_Engineering, Information_Science_and_Engineering
+
 
 def login(request):
     context = {}
@@ -16,14 +16,23 @@ def do_logout(request):
         return redirect('/login/')
 
 
-@api_view(['POST'])
 def login_validation(request):
     if request.method == 'POST':
-        mn = LoginSerializer(data=request.data)
+        email = request.POST['email']
+        password = request.POST['password']
         context = {}
-        if mn.is_valid():
+        db_data = logindb.objects.all().values()
+        if email == db_data[0]['email'] or password == db_data[0]['password']:
             request.session['logged_in'] = True
             return redirect('/adm/dashboard/')
-        context['is_error'] = True
-        context['error'] = mn.errors['non_field_errors'][0]
-        return render(request, 'login/login.html', context)
+        student_db_data = ''
+        student_db_data = Computer_Science_and_Engineering.objects.filter(
+            email=email, password=password).values() or Information_Science_and_Engineering.objects.filter(email=email, password=password).values()
+        if student_db_data:
+            request.session['logged_in'] = True
+            request.session['ID'] = student_db_data[0]['student_ID']
+            return redirect('/stu/dashboard/')
+        else:
+            context['is_error'] = True
+            context['error'] = 'Invalid Username or Password'
+            return render(request, 'login/login.html', context)

@@ -1,13 +1,10 @@
-{% extends 'adminportal/admin_base.html' %} 
-{% load static %} 
-{% block head %}
+{% extends 'adminportal/admin_base.html' %} {% load static %} {% block head %}
 <title>Search and Import Students</title>
-<link rel="stylesheet" href="{% static 'css/admin/admin_studentslist.css' %}"/>
-{% endblock %} 
-{% block content %}
+<link rel="stylesheet" href="{% static 'css/admin/admin_studentslist.css' %}" />
+{% endblock %} {% block content %}
 <div class="content">
   <h3>Search and Import Student Records</h3>
-  <div class="contain"> 
+  <div class="contain">
     <form id="studentDetails">
       <div class="form-group">
         <select id="course" name="choice">
@@ -18,7 +15,7 @@
         <button id="searchButton">Search</button>
       </div>
     </form>
-    <br>
+    <br />
 
     <form id="studentform" enctype="multipart/form-data">
       <div class="form-group1">
@@ -28,11 +25,11 @@
         </select>
       </div>
 
-      <br/>
-      
+      <br />
+
       <div class="form-group-upload">
         <label for="fileInput">Upload Excel File:</label>
-        <input type="file" id="fileInput" name="file" accept=".xls, .xlsx"/>
+        <input type="file" id="fileInput" name="file" accept=".xls, .xlsx" />
       </div>
       <div class="button-group-upload">
         <button id="submitButton">Submit</button>
@@ -41,44 +38,106 @@
   </div>
 </div>
 
-
 <div class="content">
   <h3>List of Students</h3>
   <div class="contain">
-    <h4 style="margin-top: 0;">Course Name:</h4>
+    <h4 style="margin-top: 0">Course Name:</h4>
     <table>
       <thead>
         <tr>
           <th>Student ID</th>
-          <th style="text-align: left; padding: 0 10px;">Name</th>
+          <th style="text-align: left; padding: 0 10px">Name</th>
           <th>Phone</th>
-          <th style="text-align: left; padding: 0 10px;">Email</th>
-          <th style="text-align: left; padding: 0 10px;">View/Edit</th>
+          <th style="text-align: left; padding: 0 10px">Email</th>
+          <th style="text-align: left; padding: 0 10px">View/Edit</th>
           <th>Delete</th>
         </tr>
       </thead>
-  
-      <tbody>
-        <tr>
-          <td>2024CS001</td>
-          <td style="width: 300px; text-align: left; padding: 0 10px;">Akash Varghese</td>
-          <td style="width: 200px;">78945612305</td>
-          <td style="width: 300px; text-align: left; padding: 0 10px;">akashvarghese@gmail.com</td>
-          <td style="width: 60px;">
-            <div class="edit-button">
-              <a href="#">View</a>
-            </div>
-          </td>
-          <td style="width: 70px">
-            <div class="delete-button">
-              <form action="#" method="#">
-                <button type="submit" onclick="return confirm('Are you sure you want to delete this Student?')">Delete</button>
-              </form>
-            </div>
-          </td>
-        </tr>
-      </tbody>
+
+      <tbody id="table-body"></tbody>
     </table>
   </div>
 </div>
+
+<script>
+  //for getting registered student data.
+
+  document
+    .getElementById("studentDetails")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+      const form = document.getElementById("studentDetails");
+      const data = new FormData(form);
+      fetch("/adm/studentData/", {
+        method: "POST",
+        body: data,
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          if (data == null) {
+            alert("Students are not registered for this course");
+            return;
+          }
+          tbody = document.getElementById("table-body");
+
+          console.log(data);
+
+          tbody.innerHTML = "";
+          data.forEach((element) => {
+            row = document.createElement("tr");
+
+            row.innerHTML = `<td>${element.student_ID}</td>
+            <td style="width: 300px; text-align: left; padding: 0 10px">
+            ${element.name}
+          </td>
+          <td style="width: 200px">${element.phone}</td>
+          <td style="width: 300px; text-align: left; padding: 0 10px">
+            ${element.email}
+          </td>
+          <td style="width: 60px">
+            <div class="edit-button">
+              <a href="#">View</a>
+            </div>
+          </td>`;
+
+            tbody.appendChild(row);
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+</script>
 {% endblock %}
+
+<!-- <tbody id="table-body">
+  <tr>
+    <td>2024CS001</td>
+    <td style="width: 300px; text-align: left; padding: 0 10px">
+      Akash Varghese
+    </td>
+    <td style="width: 200px">78945612305</td>
+    <td style="width: 300px; text-align: left; padding: 0 10px">
+      akashvarghese@gmail.com
+    </td>
+    <td style="width: 60px">
+      <div class="edit-button">
+        <a href="#">View</a>
+      </div>
+    </td>
+    <td style="width: 70px">
+      <div class="delete-button">
+        <form action="#" method="#">
+          <button
+            type="submit"
+            onclick="return confirm('Are you sure you want to delete this Student?')"
+          >
+            Delete
+          </button>
+        </form>
+      </div>
+    </td>
+  </tr>
+</tbody> -->

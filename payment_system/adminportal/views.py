@@ -70,14 +70,6 @@ def studentDetails(request):
     return JsonResponse(data, safe=False)
 
 
-# To process sheet submitted by the user
-<< << << < HEAD
-
-
-== == == =
->>>>>> > 59a0eff78a037ea0b91785a9c3e7169ccd074813
-
-
 @csrf_exempt
 def addStudent(request):
     if request.method == 'POST':

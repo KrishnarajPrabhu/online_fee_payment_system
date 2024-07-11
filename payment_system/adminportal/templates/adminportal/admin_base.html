@@ -125,29 +125,6 @@
             });
         });
 
-      //for getting registered student data.
-
-      document
-        .getElementById("studentDetails")
-        .addEventListener("submit", function (event) {
-          event.preventDefault();
-          const form = document.getElementById("studentDetails");
-          const data = new FormData(form);
-          fetch("/adm/studentData/", {
-            method: "POST",
-            body: data,
-          })
-            .then((response) => {
-              return response.json();
-            })
-            .then((data) => {
-              console.log(data);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        });
-
       //To handle page reload
       window.addEventListener("pageshow", function (event) {
         if (
