@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'login',
     'adminportal',
     'studentportal',
-    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -88,9 +87,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'payment',
                 'USER': 'root',
-                'PASSWORD': 'qwerty@123',
+                'PASSWORD': 'Mahesh@2003',
                 'HOST': 'localhost',
-                'PORT': '3307',
+                'PORT': '3306',
     }
 }
 
