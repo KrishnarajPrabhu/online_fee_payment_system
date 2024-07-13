@@ -11,7 +11,18 @@
     />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    {% block head %} {% endblock %}
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="{% static 'css/admin/admin_base.css' %}" />
+    >>>>>>> 59a0eff78a037ea0b91785a9c3e7169ccd074813 {% block head %} {%
+    endblock %}
   </head>
 
   <body>
@@ -22,19 +33,19 @@
         </div>
         <div class="nav-row">
           <img src="{% static 'images/dashboard.png' %}" alt="logo" />
-          <a class="nav" href="#">Dashboard</a>
+          <a class="nav" href="{% url 'adm_dashboard' %}">Dashboard</a>
         </div>
         <div class="nav-row">
           <img src="{% static 'images/students.png' %}" alt="logo" />
-          <a class="nav" href="#">Classes & Students</a>
+          <a class="nav" href="{% url 'student_list' %}">Classes & Students</a>
         </div>
         <div class="nav-row">
           <img src="{% static 'images/fee.png' %}" alt="logo" />
-          <a class="nav" href="#">Set Fee Particular</a>
+          <a class="nav" href="{% url 'payment_setup' %}">Fee Payment Setup</a>
         </div>
         <div class="nav-row">
           <img src="{% static 'images/history.png' %}" alt="logo" />
-          <a class="nav" href="#">Payment History</a>
+          <a class="nav" href="{% url 'payment_history' %}">Payment History</a>
         </div>
         <div class="nav-row">
           <img src="{% static 'images/queries.png' %}" alt="logo" />
