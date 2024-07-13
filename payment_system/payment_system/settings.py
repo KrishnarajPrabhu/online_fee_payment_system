@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'login',
     'adminportal',
     'studentportal',
-    'rest_framework',
 ]
 
 MIDDLEWARE = [
