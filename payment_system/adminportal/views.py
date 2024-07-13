@@ -69,8 +69,6 @@ def studentDetails(request):
     data = list(student)
     return JsonResponse(data, safe=False)
 
-# To process sheet submitted by the user
-
 
 @csrf_exempt
 def addStudent(request):
