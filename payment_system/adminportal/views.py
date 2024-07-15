@@ -20,6 +20,7 @@ Model_Mapping = {
 def adm_dashboard(request):
     context = {
         'current_date': datetime.now().strftime('%d-%m-%Y'),
+        'name' : request.session['name'],
     }
     return render(request, 'adminportal/admin_dash.html', context)
 
@@ -29,6 +30,7 @@ def adm_dashboard(request):
 def student_list(request):
     context = {
         'current_date': datetime.now().strftime('%d-%m-%Y'),
+        'name' : request.session['name'],
     }
     return render(request, 'adminportal/admin_studentlist.html', context)
 
@@ -52,11 +54,13 @@ def payment_setup(request):
             status=0
         )
         context = {
-            'current_date': datetime.now().strftime('%d-%m-%Y'),
-        }
+        'current_date': datetime.now().strftime('%d-%m-%Y'),
+        'name' : request.session['name'],
+    }
         return render(request, 'adminportal/admin_paymentsetup.html', context)
     context = {
         'current_date': datetime.now().strftime('%d-%m-%Y'),
+        'name' : request.session['name'],
     }
     return render(request, 'adminportal/admin_paymentsetup.html', context)
 
@@ -66,6 +70,7 @@ def payment_setup(request):
 def payment_history(request):
     context = {
         'current_date': datetime.now().strftime('%d-%m-%Y'),
+        'name' : request.session['name'],
     }
     return render(request, 'adminportal/admin_paymenthistory.html', context)
 

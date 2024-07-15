@@ -24,6 +24,7 @@ def login_validation(request):
         db_data = logindb.objects.all().values()
         if email == db_data[0]['email'] and password == db_data[0]['password']:
             request.session['logged_in'] = True
+            request.session['name'] = db_data[0]['name']
             return redirect('/adm/dashboard/')
         student_db_data = ''
         student_db_data = Computer_Science_and_Engineering.objects.filter(

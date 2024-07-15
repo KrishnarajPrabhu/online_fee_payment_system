@@ -1,0 +1,65 @@
+{% extends 'studentportal/student_base.html' %}
+{% load static %}
+{% block head %}
+    <title>Student - Account Settings</title>
+    <link rel="stylesheet" href="{% static 'css/student/student_settings.css' %}">
+{% endblock %}
+{% block content %}
+<h3 class="bordering">Account Settings</h3>
+<div class="account-settings">
+    <div class="readonly-field">
+        <label>Name:</label>
+        <input type="text" id="name" value="Mahesh Nayak" readonly>
+    </div>
+    <div class="readonly-field">
+        <label>USN:</label>
+        <input type="text" id="usn" value="21CS077" readonly>
+    </div>
+    <div class="readonly-field">
+        <label>Email:</label>
+        <input type="text" id="email" value="maheshnayak@gmail.com" readonly>
+    </div>
+    <div class="readonly-field">
+        <label>PhoneNo:</label>
+        <input type="text" id="phoneno" value="+91246424684" readonly>
+    </div>
+
+</div>
+
+<h3 style='margin-top:70px' class='bordering'>Password Change</h3>
+<div class="password-change">
+    <form id="passwordChangeForm">
+        <div class="password-field">
+            <label>Old Password:</label>
+            <input type="password" id="old_password" name="old_password" required>
+        </div>
+        <div class="password-field">
+            <label>New Password:</label>
+            <input type="password" id="new_password" name="new_password" required disabled>
+        </div>
+        <div class="password-field">
+            <label>Re-enter Password:</label>
+            <input type="password" id="reenter_password" name="reenter_password" required disabled>
+        </div>
+        <button type="submit" disabled>Change Password</button>
+    </form>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() 
+{
+    const oldPassword = document.getElementById("old_password");
+    const newPassword = document.getElementById("new_password");
+    const reenterPassword = document.getElementById("reenter_password");
+    const submitButton = document.querySelector("button[type='submit']");
+    oldPassword.addEventListener("input", function() 
+    {
+        const isValidOldPassword = oldPassword.value === "correctPassword";
+        newPassword.disabled = !isValidOldPassword;
+        reenterPassword.disabled = !isValidOldPassword;
+        submitButton.disabled = !isValidOldPassword;
+    }
+    );
+});
+</script>
+{% endblock %}
