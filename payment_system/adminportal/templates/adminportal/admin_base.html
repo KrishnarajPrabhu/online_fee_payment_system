@@ -71,60 +71,6 @@
     <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
 
     <script>
-      //To get the course details from the backend.
-      addEventListener("DOMContentLoaded", () => {
-        fetch("/adm/getCourse/")
-          .then((response) => {
-            return response.json();
-          })
-          .then((data) => {
-            let select_element = document.getElementById("course");
-
-            data.forEach((element) => {
-              let op = document.createElement("option");
-              op.value = element["course_ID"];
-              op.textContent = element["course_name"];
-              select_element.appendChild(op);
-            });
-
-            let another_select_element =
-              document.getElementById("another_course");
-            data.forEach((element) => {
-              let op = document.createElement("option");
-              op.value = element["course_ID"];
-              op.textContent = element["course_name"];
-              another_select_element.appendChild(op);
-            });
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      });
-
-      //For uploading student data into the backend.
-      document
-        .getElementById("studentform")
-        .addEventListener("submit", function (event) {
-          event.preventDefault();
-          const form = document.getElementById("studentform");
-          const data = new FormData(form);
-          fetch("/adm/upload/", {
-            method: "POST",
-            body: data,
-          })
-            .then((response) => {
-              return response.json();
-            })
-            .then((data) => {
-              alert(data["message"]);
-              window.location.reload();
-            })
-            .catch((error) => {
-              alert(data["mesage"]);
-              window.location.reload();
-            });
-        });
-
       //To handle page reload
       window.addEventListener("pageshow", function (event) {
         if (

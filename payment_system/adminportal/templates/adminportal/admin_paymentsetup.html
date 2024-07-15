@@ -1,53 +1,84 @@
-{% extends 'adminportal/admin_base.html' %} 
-{% load static %} 
-{% block head %}
+{% extends 'adminportal/admin_base.html' %} {% load static %} {% block head %}
 <title>Fee Payment Setup</title>
-<link rel="stylesheet" href="{% static 'css/admin/admin_paymentsetup.css' %}"/>
-{% endblock %} 
-{% block content %}
+<link rel="stylesheet" href="{% static 'css/admin/admin_paymentsetup.css' %}" />
+{% endblock %} {% block content %}
 <div class="content">
   <h3>Payment Link Setup</h3>
   <div class="contain">
-    <form>
-        <div class="form-group">
-            <label>Select Course(s)</label>
-            <div class="checkbox-group">
-                <label><input type="checkbox" name="course" value="course1"> Course 1</label>
-                <label><input type="checkbox" name="course" value="course2"> Course 2</label>
-                <label><input type="checkbox" name="course" value="course3"> Course 3</label>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="feeName">Fee Item Name</label>
-            <input type="text" id="feeName" name="feeName">
-        </div>
-        <div class="form-group">
-            <label for="description">Description</label>
-            <textarea id="description" name="description" rows="4"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="amount">Amount</label>
-            <input type="number" id="amount" name="amount" step="0.01">
-        </div>
-        <div class="form-group">
-          <label for="startDate">Start Date</label>
-          <input type="date" id="startDate" name="startDate">
-        </div>
-        <div class="form-group">
-            <label for="dueDate">Due Date</label>
-            <input type="date" id="dueDate" name="dueDate">
-        </div>
-        <div class="button-group">
-            <button type="submit">Create Link</button>
-        </div>
+    <form action="{% url 'payment_setup' %}" method="post">
+      {% csrf_token %}
+      <!-- <div class="form-group">
+        <label>Select Course(s)</label>
+        <div class="checkbox-group" id="course_list"></div>
+      </div> -->
+      <select id="course_list" name="choice">
+        <option value="empty">Select Course</option>
+      </select>
+      <div class="form-group">
+        <label for="feeName">Fee Item Name</label>
+        <input type="text" id="feeName" name="feeName" />
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="4"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="amount">Amount</label>
+        <input type="number" id="amount" name="amount" step="0.01" />
+      </div>
+      <div class="form-group">
+        <label for="startDate">Start Date</label>
+        <input type="date" id="startDate" name="startDate" />
+      </div>
+      <div class="form-group">
+        <label for="dueDate">Due Date</label>
+        <input type="date" id="dueDate" name="dueDate" />
+      </div>
+      <div class="button-group">
+        <button type="submit">Create Link</button>
+      </div>
     </form>
-</div>
+  </div>
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', (event) => {
-      const today = new Date().toISOString().split('T')[0];
-      document.getElementById('startDate').value = today;
+  document.addEventListener("DOMContentLoaded", (event) => {
+    const today = new Date().toISOString().split("T")[0];
+    document.getElementById("startDate").value = today;
+  });
+
+  //To get course details
+  addEventListener("DOMContentLoaded", () => {
+    fetch("/adm/getCourse/")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        let select_element = document.getElementById("course_list");
+
+        data.forEach((element) => {
+          let op = document.createElement("option");
+          op.value = element["course_ID"];
+          op.textContent = element["course_name"];
+          select_element.appendChild(op);
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   });
 </script>
 {% endblock %}
+
+<!-- <label
+            ><input type="checkbox" name="course" value="course1" /> Course
+            1</label
+          >
+          <label
+            ><input type="checkbox" name="course" value="course2" /> Course
+            2</label
+          >
+          <label
+            ><input type="checkbox" name="course" value="course3" /> Course
+            3</label
+          > -->

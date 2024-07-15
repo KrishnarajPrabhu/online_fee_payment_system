@@ -22,7 +22,7 @@ def login_validation(request):
         password = request.POST['password']
         context = {}
         db_data = logindb.objects.all().values()
-        if email == db_data[0]['email'] or password == db_data[0]['password']:
+        if email == db_data[0]['email'] and password == db_data[0]['password']:
             request.session['logged_in'] = True
             return redirect('/adm/dashboard/')
         student_db_data = ''

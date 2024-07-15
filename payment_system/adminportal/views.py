@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db import connection
 from .models import Computer_Science_and_Engineering
 from .models import Information_Science_and_Engineering
-from .models import Course
+from .models import Course, Fees_details
 
 Model_Mapping = {
     'CSE01': Computer_Science_and_Engineering,
@@ -36,6 +36,25 @@ def student_list(request):
 
 
 def payment_setup(request):
+    if request.method == "POST":
+        course_ID = request.POST['choice']
+        description = request.POST['feeName']
+        amount = request.POST['amount']
+        start_date = request.POST['startDate']
+        end_date = request.POST['dueDate']
+
+        Fees_details.objects.create(
+            course_id=course_ID,
+            description=description,
+            amount=amount,
+            start_date=start_date,
+            end_date=end_date,
+            status=0
+        )
+        context = {
+            'current_date': datetime.now().strftime('%d-%m-%Y'),
+        }
+        return render(request, 'adminportal/admin_paymentsetup.html', context)
     context = {
         'current_date': datetime.now().strftime('%d-%m-%Y'),
     }
@@ -50,12 +69,22 @@ def payment_history(request):
     }
     return render(request, 'adminportal/admin_paymenthistory.html', context)
 
-# API that sends course details
+# API that sends course details -> The course that are present in the college.
 
 
 def course(request):
     course = Course.objects.all().values('course_name', 'course_ID')
     data = list(course)
+    return JsonResponse(data, safe=False)
+
+# API to get the course details assigned to the student by the admin.
+
+
+def get_Fees_details(request):
+    db_fees_details = Fees_details.objects.all().values(
+        'id', 'description', 'course_id', 'amount', 'start_date', 'end_date', 'status')
+    print(db_fees_details)
+    data = list(db_fees_details)
     return JsonResponse(data, safe=False)
 
 
@@ -70,6 +99,7 @@ def studentDetails(request):
     return JsonResponse(data, safe=False)
 
 
+# To add the student details from the Excel fiel into the database.
 @csrf_exempt
 def addStudent(request):
     if request.method == 'POST':
@@ -113,3 +143,29 @@ def addStudent(request):
                     phone=int(row['phone'])
                 )
             return JsonResponse({'message': 'Details are uploaded successfully'}, status=200)
+
+
+# This are funtionality that are related to payment.
+
+def Paid_details(request, value):
+    # course_code = request.POST.get('choice')
+    course_code = value
+    table_name = course_code+"_FD"
+
+    with connection.cursor() as cursor:
+        query = f'select count(*) from information_schema.tables where table_name="{table_name}"'
+        print(query)
+        cursor.execute(query)
+        if cursor.fetchone()[0] == 1:
+            return JsonResponse("The course already started!", safe=False)
+
+    tble_name = Model_Mapping.get(value)
+    student_ID = tble_name.objects.values_list('student_ID', flat=True)
+    columns = ['Id int primary key, description varchar(255)']
+    columns.extend([f'{student_id} varchar(255)' for student_id in student_ID])
+    create_table_sql = f'create table {table_name} ({", ".join(columns)})'
+    print(create_table_sql)
+    with connection.cursor() as cursor:
+        cursor.execute(f'DROP TABLE IF EXISTS {table_name}')
+        cursor.execute(create_table_sql)
+    return JsonResponse("Table is successfully created", safe=False)

@@ -60,6 +60,29 @@
 </div>
 
 <script>
+  //For uploading student data into the backend.
+  document
+    .getElementById("studentform")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+      const form = document.getElementById("studentform");
+      const data = new FormData(form);
+      fetch("/adm/upload/", {
+        method: "POST",
+        body: data,
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          alert(data["message"]);
+          window.location.reload();
+        })
+        .catch((error) => {
+          alert(data["mesage"]);
+          window.location.reload();
+        });
+    });
   //for getting registered student data.
 
   document
@@ -109,35 +132,34 @@
           console.log(error);
         });
     });
+
+  //To get the course details from the backend.
+  addEventListener("DOMContentLoaded", () => {
+    fetch("/adm/getCourse/")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        let select_element = document.getElementById("course");
+
+        data.forEach((element) => {
+          let op = document.createElement("option");
+          op.value = element["course_ID"];
+          op.textContent = element["course_name"];
+          select_element.appendChild(op);
+        });
+
+        let another_select_element = document.getElementById("another_course");
+        data.forEach((element) => {
+          let op = document.createElement("option");
+          op.value = element["course_ID"];
+          op.textContent = element["course_name"];
+          another_select_element.appendChild(op);
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
 </script>
 {% endblock %}
-
-<!-- <tbody id="table-body">
-  <tr>
-    <td>2024CS001</td>
-    <td style="width: 300px; text-align: left; padding: 0 10px">
-      Akash Varghese
-    </td>
-    <td style="width: 200px">78945612305</td>
-    <td style="width: 300px; text-align: left; padding: 0 10px">
-      akashvarghese@gmail.com
-    </td>
-    <td style="width: 60px">
-      <div class="edit-button">
-        <a href="#">View</a>
-      </div>
-    </td>
-    <td style="width: 70px">
-      <div class="delete-button">
-        <form action="#" method="#">
-          <button
-            type="submit"
-            onclick="return confirm('Are you sure you want to delete this Student?')"
-          >
-            Delete
-          </button>
-        </form>
-      </div>
-    </td>
-  </tr>
-</tbody> -->

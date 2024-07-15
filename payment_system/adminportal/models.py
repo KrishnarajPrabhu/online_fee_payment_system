@@ -40,3 +40,17 @@ class Course(models.Model):
 
     def __str__(self):
         return f"{self.course_ID} {self.course_name}"
+
+
+# Just created to store the fees details
+class Fees_details(models.Model):
+    id = models.AutoField(primary_key=True)
+    course_id = models.CharField(max_length=50)
+    description = models.CharField(max_length=50)
+    amount = models.IntegerField()
+    start_date = models.DateField()
+    end_date = models.DateField()
+    status = models.CharField(max_length=20)
+
+    def __str__(self):
+        return f"{self.id} {self.description} {self.amount} {self.start_date} {self.end_date}"
