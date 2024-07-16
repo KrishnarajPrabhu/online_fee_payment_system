@@ -2,9 +2,12 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+        <meta http-equiv="Pragma" content="no-cache"/>
+        <meta http-equiv="Expires" content="0"/>
         <link rel="stylesheet" href="{% static 'css/student/student_base.css' %}"/>
         {% block head %} {% endblock %}
     </head>
@@ -17,7 +20,7 @@
                 </div>
                 <div class="nav-row">
                     <img src="{% static 'images/dashboard.png' %}" alt="logo">
-                    <a class="nav" href="{% url 'dashboard' %}">Dashboard</a>
+                    <a class="nav" href="{% url 'student_dashboard' %}">Dashboard</a>
                 </div>
                 <div class="nav-row">
                     <img src="{% static 'images/history.png' %}" alt="logo">

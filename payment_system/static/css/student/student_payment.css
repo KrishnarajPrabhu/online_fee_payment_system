@@ -38,10 +38,10 @@
 
 .account-profile {
     padding: 20px;
-    border: 2px solid #238226; /* Green border */
-    border-radius: 8px; /* Rounded corners */
-    background-color: #f3f3f3; /* Light gray background */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    border: 2px solid #238226; 
+    border-radius: 8px;
+    background-color: #f3f3f3; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     margin-top: 30px;
 }
 
@@ -63,10 +63,14 @@
     margin: 10px 0;
 }
 
-.bordering{
-    border-left: 6px solid #1a73e8; 
-    padding-left: 10px; 
-    color: #1a73e8;
-    font-size: 1.5em; 
-    margin-top: 40px;
+.content h3{
+    margin-top: 0;
+    margin-right: 0;
+    background-color: #5a91c8;
+    color: #ffffff;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    border-radius: 5px;
 }

@@ -3,36 +3,21 @@
 <link rel="stylesheet" href="{% static 'css/admin/admin_studentslist.css' %}" />
 {% endblock %} {% block content %}
 <div class="content">
-  <h3>Search and Import Student Records</h3>
+  <h3>Import Student Records</h3>
   <div class="contain">
-    <form id="studentDetails">
-      <div class="form-group">
-        <select id="course" name="choice">
-          <option value="empty">Select Course</option>
-        </select>
-      </div>
-      <div class="button-group">
-        <button id="searchButton">Search</button>
-      </div>
-    </form>
-    <br />
-
     <form id="studentform" enctype="multipart/form-data">
-      <div class="form-group1">
-        <label for="another_course">Select Course:</label>
+      <div class="form-group" style="margin-bottom: 15px;">
+        <label for="another_course">Select Course to Import&ensp;:</label>
         <select id="another_course" name="choice">
           <option value="empty">Select Course</option>
         </select>
       </div>
-
-      <br />
-
       <div class="form-group-upload">
-        <label for="fileInput">Upload Excel File:</label>
+        <label for="fileInput">Upload Excel File&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</label>
         <input type="file" id="fileInput" name="file" accept=".xls, .xlsx" />
       </div>
       <div class="button-group-upload">
-        <button id="submitButton">Submit</button>
+        <button id="submitButton">Import</button>
       </div>
     </form>
   </div>
@@ -41,16 +26,22 @@
 <div class="content">
   <h3>List of Students</h3>
   <div class="contain">
-    <h4 style="margin-top: 0">Course Name:</h4>
+    <form id="studentDetails">
+      <div class="form-group">
+        <label for="another_course">Select Course to Search&ensp;:</label>
+        <select id="course" name="choice">
+          <option value="empty">Select Course</option>
+        </select>
+        <button class="button-group" id="searchButton">Search</button>
+      </div>
+    </form>
     <table>
       <thead>
         <tr>
           <th>Student ID</th>
-          <th style="text-align: left; padding: 0 10px">Name</th>
-          <th>Phone</th>
-          <th style="text-align: left; padding: 0 10px">Email</th>
-          <th style="text-align: left; padding: 0 10px">View/Edit</th>
-          <th>Delete</th>
+          <th style="width: 300px; text-align: left; padding: 0 10px">Name</th>
+          <th style="width: 200px;">Phone</th>
+          <th style="width: 350px; text-align: left; padding: 0 10px">Email</th>
         </tr>
       </thead>
 
@@ -111,19 +102,11 @@
           data.forEach((element) => {
             row = document.createElement("tr");
 
-            row.innerHTML = `<td>${element.student_ID}</td>
-            <td style="width: 300px; text-align: left; padding: 0 10px">
-            ${element.name}
-          </td>
-          <td style="width: 200px">${element.phone}</td>
-          <td style="width: 300px; text-align: left; padding: 0 10px">
-            ${element.email}
-          </td>
-          <td style="width: 60px">
-            <div class="edit-button">
-              <a href="#">View</a>
-            </div>
-          </td>`;
+            row.innerHTML = `
+            <td>${element.student_ID}</td>
+            <td style="width: 300px; text-align: left; padding: 0 10px">${element.name}</td>
+            <td style="width: 200px">${element.phone}</td>
+            <td style="width: 350px; text-align: left; padding: 0 10px">${element.email}</td>`;
 
             tbody.appendChild(row);
           });

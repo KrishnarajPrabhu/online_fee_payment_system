@@ -158,12 +158,12 @@ body {
 }
 
 .contain {
-    padding: 5px 10px 10px 20px;
+    padding: 5px 10px 10px 20px;;
 }
 
 form .form-group,
 form .button-group{
-    color: #3a5a86;
+    color: #4372ab;
 }
 
 .content select {
@@ -213,7 +213,7 @@ table td {
     text-align: center;
     color: #556f6a;
     height: 36px;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 15px;
 }
 

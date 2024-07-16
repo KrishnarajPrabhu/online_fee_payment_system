@@ -8,10 +8,10 @@
     <div class="form-group">
       <label for="rowsToShow">Show Rows:</label>
       <select id="rowsToShow" name="rowsToShow" onchange="updateTable()">
-        <option value="3">3</option>
-        <option value="7">7</option>
+        <option value="5">5</option>
         <option value="10">10</option>
         <option value="20">20</option>
+        <option value="50">50</option>
         <option value="all">All</option>
       </select>
     </div>
@@ -22,10 +22,11 @@
           <th style="width: 300px; text-align: left; padding-left: 10px">
             Fee Item Name
           </th>
-          <th style="width: 250px; text-align: left">Course(s)</th>
+          <th style="width: 250px; text-align: left">Course</th>
           <th>Start Date</th>
           <th>Due Date</th>
           <th style="text-align: right">Amount (INR)</th>
+          <th>Status</th>
         </tr>
       </thead>
       <tbody id="tableBody"></tbody>

@@ -63,10 +63,14 @@
     margin: 10px 0;
 }
 
-.bordering{
-    border-left: 6px solid #1a73e8; 
-    padding-left: 10px; 
-    color: #1a73e8;
-    font-size: 1.5em; 
-    margin-top: 40px;
+.content h3 {
+    margin-top: 0;
+    margin-right: 0;
+    background-color: #5a91c8;
+    color: #ffffff;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    border-radius: 5px;
 }

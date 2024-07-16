@@ -1,10 +1,13 @@
 form .form-group,
 form .button-group{
     display: inline-block;
-    color: #3a5a86;
 }
 
-.button-group button {
+.form-group label {
+    margin-right: 20px;
+}
+
+.form-group button{
     height: 30px;
     width: 80px;
     border-style: none;
@@ -14,6 +17,14 @@ form .button-group{
     font-size: 16px;
     cursor: pointer;
     font-weight: 600;
+}
+
+.form-group-upload {
+    margin-bottom: 10px;
+}
+
+.form-group-upload label {
+    margin-right: 20px;
 }
 
 .form-group-upload input {
@@ -33,7 +44,7 @@ form .button-group{
     font-weight: 600;
 }
 
-td .edit-button {
+/*td .edit-button {
     height: 26px;
     border-radius: 2px;
     cursor: pointer;
@@ -60,4 +71,4 @@ td .edit-button {
     font-size: 1em;
     border: none;
     border-radius: 2px;
-}
+}*/

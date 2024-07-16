@@ -7,37 +7,40 @@
 {% endblock %}
 
 {% block content %}
-<h3 class="bordering">Account Profile</h3>
-<div class="account-profile">
-    <p>Student ID:</p>
-    <p>Name:</p>
-    <p>Course:</p>
-</div>
-<h3 style='margin-top:70px', class='bordering'>Payment History</h3>
 <div class="content">
-    <table class="display-table">
-        <thead>
-            <tr>
-                <th>Transaction ID</th>
-                <th>Amount</th>
-                <th>Date</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td style="width:200px">TXN1234567890</td>
-                <td style="width: 150px;">90060.00</td>
-                <td style="width: 200px;">06-07-2024</td>
-                <td style="width: 250px;">Tuition Fee</td>
-            </tr>
-            <tr>
-                <td style="width:200px">TXN5609567127</td>
-                <td style="width: 150px;">70000.00</td>
-                <td style="width: 200px;">09-07-2024</td>
-                <td style="width: 250px;">Hostel Fee</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="account-profile">
+        <p>Student ID:</p>
+        <p>Name:</p>
+        <p>Course:</p>
+    </div>
+</div>
+<div class="content">
+    <h3 style='margin-top:70px'>Payment History</h3>
+    <div>
+        <table class="display-table">
+            <thead>
+                <tr>
+                    <th>Transaction ID</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="width:200px">TXN1234567890</td>
+                    <td style="width: 150px;">90060.00</td>
+                    <td style="width: 200px;">06-07-2024</td>
+                    <td style="width: 250px;">Tuition Fee</td>
+                </tr>
+                <tr>
+                    <td style="width:200px">TXN5609567127</td>
+                    <td style="width: 150px;">70000.00</td>
+                    <td style="width: 200px;">09-07-2024</td>
+                    <td style="width: 250px;">Hostel Fee</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endblock %}
