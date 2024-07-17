@@ -141,8 +141,9 @@ body {
     overflow-x: auto;
     font-weight: 600;
     color: #4372ab;
-    background-color: #ffffff;
-    margin: 20px 0;
+    margin: 20px 0 50px;
+    border: 2px solid #739ed2;
+    background-color: #fcfcfc;
 }
 
 .content h3 {
@@ -154,11 +155,11 @@ body {
     display: flex;
     align-items: center;
     padding-left: 10px;
-    border-radius: 5px;
+    border-radius: 0px;
 }
 
 .contain {
-    padding: 5px 10px 10px 20px;;
+    padding: 5px 10px 10px 20px;
 }
 
 form .form-group,
@@ -193,7 +194,7 @@ table {
 
 table th {
     border: 2px solid #c7d8cd;
-    background-color: #51a95b;
+    background-color: #069d4a;
     padding: 0 10px;
     height: 40px;
     text-align: center;

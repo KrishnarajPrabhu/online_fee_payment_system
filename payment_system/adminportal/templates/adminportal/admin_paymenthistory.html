@@ -6,6 +6,45 @@
 {% endblock %} 
 {% block content %}
 <div class="content">
-  <h1>Payment History</h1>
+  <h3>Payment History</h3>
+  <div class="contain">
+    <form id="transaction-export">
+      <div class="form-group">
+        <label for="export">Export to PDF&ensp;:</label>
+        <button class="button-group" id="export-to-pdf">Export</button>
+      </div>
+    </form>
+    <h4>Total Amount: 656556.65</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Sl. No.</th>
+          <th style="width: 200px; text-align: left; padding: 0 10px;">Fee Item Name</th>
+          <th style="width: 100px;">Student ID</th>
+          <th style="width: 300px; text-align: left; padding: 0 10px;">Student Name</th>
+          <th style="width: 100px;">Course ID</th>
+          <th style="width: 100px;">Paid Date</th>
+          <th style="width: 80px; text-align: right; padding: 0 10px;">Amount</th>
+          <th style="width: 130px;">Transaction ID</th>
+          <th style="width: 120px;">Receipt No.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td style="width: 200px; text-align: left; padding: 0 10px">Tuition Fee</td>
+          <td style="width: 100px;">SCSE001</td>
+          <td style="width: 300px; text-align: left; padding: 0 10px">Mahesha</td>
+          <td style="width: 100px;">CSE01</td>
+          <td style="width: 100px;">17-07-2024</td>
+          <td style="width: 80px; text-align: right; padding: 0 10px">15000.00</td>
+          <td style="width: 130px;">IWER8979555</td>
+          <td style="width: 120px;">QWERTT001</td>
+        </tr>
+      </tbody>
+    </table>
+    
+  </div>
+
 </div>
 {% endblock %}

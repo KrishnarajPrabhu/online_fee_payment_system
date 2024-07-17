@@ -3,27 +3,6 @@
 <link rel="stylesheet" href="{% static 'css/admin/admin_studentslist.css' %}" />
 {% endblock %} {% block content %}
 <div class="content">
-  <h3>Import Student Records</h3>
-  <div class="contain">
-    <form id="studentform" enctype="multipart/form-data">
-      <div class="form-group" style="margin-bottom: 15px;">
-        <label for="another_course">Select Course to Import&ensp;:</label>
-        <select id="another_course" name="choice">
-          <option value="empty">Select Course</option>
-        </select>
-      </div>
-      <div class="form-group-upload">
-        <label for="fileInput">Upload Excel File&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</label>
-        <input type="file" id="fileInput" name="file" accept=".xls, .xlsx" />
-      </div>
-      <div class="button-group-upload">
-        <button id="submitButton">Import</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<div class="content">
   <h3>List of Students</h3>
   <div class="contain">
     <form id="studentDetails">
@@ -47,6 +26,27 @@
 
       <tbody id="table-body"></tbody>
     </table>
+  </div>
+</div>
+
+<div class="content">
+  <h3>Import Student Records</h3>
+  <div class="contain">
+    <form id="studentform" enctype="multipart/form-data">
+      <div class="form-group" style="margin-bottom: 15px;">
+        <label for="another_course">Select Course to Import&ensp;:</label>
+        <select id="another_course" name="choice">
+          <option value="empty">Select Course</option>
+        </select>
+      </div>
+      <div class="form-group-upload">
+        <label for="fileInput">Upload Excel File&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</label>
+        <input type="file" id="fileInput" name="file" accept=".xls, .xlsx" />
+      </div>
+      <div class="button-group-upload">
+        <button id="submitButton">Import</button>
+      </div>
+    </form>
   </div>
 </div>
 

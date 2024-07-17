@@ -9,3 +9,20 @@ table tbody tr a {
     color: inherit;
     text-decoration: none;
 }
+
+.apply-button button{
+    cursor: pointer;
+    background-color: #00af5a;
+    color: white;
+    padding: 5px 10px;
+    font-size: 0.9em;
+    font-weight: 600;
+    border: none;
+    border-radius: 2px;
+}
+
+.apply-button p{
+    margin: 0;
+    font-weight: 600;
+    color: #00af5a;
+}
