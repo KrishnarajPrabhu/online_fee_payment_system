@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="{% static 'css/student/student_base.css' %}"/>
         {% block head %} {% endblock %}
     </head>
-
+    
     <body>
         <div class="container">
             <div class="navigation">
@@ -25,7 +25,7 @@
                 <div class="nav-row">
                     <img src="{% static 'images/history.png' %}" alt="logo">
                     <a class="nav" href="{% url 'student_payment' %}">Payment History</a>
-                </div>                
+                </div>
                 <div class="nav-row">
                     <img src="{% static 'images/queries.png' %}" alt="logo">
                     <a class="nav" href="{% url 'student_queries' %}">Queries</a>
@@ -40,9 +40,9 @@
                         {% csrf_token %}
                         <button class="logout-btn" type="submit">Logout</button>
                     </form>
-                </div>  
+                </div>
             </div>
-
+    
             <div class="out-nav">
                 <div class="collar">
                     <div class="left-sec">
@@ -52,14 +52,21 @@
                         <p>Date: {{current_date}}</p>
                     </div>
                 </div>
-                
-                <div class="content">
-                    {% block content %}
-                    {% endblock %}
-                </div>
+    
+                <div class="content-out">{% block content %}{% endblock %} </div>
             </div>
         </div>
-        
+    
         <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+        <script>
+            window.addEventListener("pageshow", function (event) {
+              if (
+                event.persisted ||
+                (window.performance && window.performance.navigation.type === 2)
+              ) {
+                window.location.reload();
+              }
+            });
+          </script>
     </body>
-</html>
+    </html>

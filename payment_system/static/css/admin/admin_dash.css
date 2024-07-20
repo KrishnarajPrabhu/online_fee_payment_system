@@ -21,6 +21,11 @@ table tbody tr a {
     border-radius: 2px;
 }
 
+.apply-button button:hover {
+    transform: scale(1.05);
+    transition: transform ease 0.2s;
+}
+
 .apply-button p{
     margin: 0;
     font-weight: 600;

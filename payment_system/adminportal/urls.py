@@ -10,6 +10,7 @@ urlpatterns = [
     path('studentlist/', views.student_list, name='student_list'),
     path('paymentsetup/', views.payment_setup, name='payment_setup'),
     path('paymenthistory/', views.payment_history, name='payment_history'),
+    path('profile-settings/', views.adm_profile, name='adm_profile'),
 
     # API to get the fees deatils assigned by the student.
     path('getfeesassigned/', views.get_Fees_details, name='get_Fees_details'),

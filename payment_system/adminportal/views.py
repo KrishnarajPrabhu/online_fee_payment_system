@@ -74,6 +74,17 @@ def payment_history(request):
     }
     return render(request, 'adminportal/admin_paymenthistory.html', context)
 
+
+# profile & settings
+
+def adm_profile(request):
+    context = {
+        'current_date': datetime.now().strftime('%d-%m-%Y'),
+        'name' : request.session['name'],
+    }
+    return render(request, 'adminportal/admin_profile.html', context)
+
+
 # API that sends course details -> The course that are present in the college.
 
 

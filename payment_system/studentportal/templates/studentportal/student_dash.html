@@ -6,30 +6,25 @@
 {% endblock %}
 {% block content %}
 <div class="content">
-    <div class="account-profile">
-        <p>Student ID:</p>
-        <p>Name:</p>
-        <p>Course:</p>
-    </div>
-</div>
-<div class="content">
-<h3 style='margin-top:70px'>Pending Payments</h3>
-    <table class="display-table">
+<h3>Pending Payments</h3>
+    <table>
         <thead>
             <tr>
-                <th>Sl No</th>
-                <th>Particulars</th>
+                <th>Sl. No</th>
+                <th style="width: 150px; text-align: left; padding-left: 10px">
+                    Particulars
+                </th>
                 <th>Date</th>
-                <th>Amount</th>
+                <th style="text-align: right">Amount (INR)</th>
                 <th>Pay</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="tableBody">
             <tr>
                 <td style="width:150px">S001</td>
                 <td style="width: 200px; text-align: left; padding: 0 20px;">Gpay</td>
                 <td style="width: 200px;">05-07-2024</td>
-                <td style="width: 250px;">14500</td>
+                <td style="width: 250px; text-align:right;">14500</td>
                 <td style="width: 70px;">
                     <div class="pay-button">
                         <form action="#" method="#">

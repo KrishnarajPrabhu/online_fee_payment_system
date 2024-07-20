@@ -10,3 +10,19 @@
     cursor: pointer;
     font-weight: 600;
 }
+
+.filterData {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-right: 12px; 
+    margin-bottom: 0;
+}
+
+.filterData input{
+    padding: 6px 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f3f3f3;
+    font-size: 15px;
+}
