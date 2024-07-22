@@ -40,12 +40,6 @@ body {
     cursor: pointer;
 }
 
-.nav-row img {
-    padding-left: 10px;
-    height: 25px;
-    filter: invert(91%) sepia(8%) saturate(2817%) hue-rotate(183deg) brightness(104%) contrast(100%);
-}
-
 .nav-row:hover {
     transform: scale(1.05);
     transition: transform ease 0.4s;
@@ -61,6 +55,12 @@ body {
     font-size: 18px;
     margin-left: 0;
     width: 100%;
+}
+
+.nav-row img {
+    padding-left: 10px;
+    height: 25px;
+    filter: invert(91%) sepia(8%) saturate(2817%) hue-rotate(183deg) brightness(104%) contrast(100%);
 }
 
 .nav-row:hover img {
