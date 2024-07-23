@@ -87,9 +87,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'payment',
                 'USER': 'root',
-                'PASSWORD': 'qwerty@123',
+                'PASSWORD': 'Mahesh@2003',
                 'HOST': 'localhost',
-                'PORT': '3307',
+                'PORT': '3306',
     }
 }
 
@@ -138,3 +138,17 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# RazerPay secrete key and password.
+RAZOR_KEY_ID = 'rzp_test_5Yz5bbdTegr9tk'
+RAZOR_KEY_SECRET = 'rMmyhrLL7fSviUDpkZvXkxD5'
+
+# Email Sending details
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'maheshnayak5649@gmail.com'
+EMAIL_HOST_PASSWORD = 'zkvo ljms zoso pttp'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

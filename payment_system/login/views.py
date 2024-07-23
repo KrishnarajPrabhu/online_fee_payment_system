@@ -31,6 +31,7 @@ def login_validation(request):
             email=email, password=password).values() or Information_Science_and_Engineering.objects.filter(email=email, password=password).values()
         if student_db_data:
             request.session['logged_in'] = True
+            # Student_ID is stored in the session.
             request.session['ID'] = student_db_data[0]['student_ID']
             return redirect('/stu/dashboard/')
         else:

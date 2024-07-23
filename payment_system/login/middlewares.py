@@ -11,7 +11,7 @@ class LoginRequiredMiddleware:
         path = request.path_info
         print(path)
 
-        if request.path == settings.LOGIN_URL or request.path == '/validation/':
+        if request.path == settings.LOGIN_URL or request.path == '/validation/' or request.path == '/stu/paymenthandler/':
             return self.get_response(request)
 
         elif request.path != settings.LOGIN_URL:
