@@ -1,5 +1,5 @@
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .form-group label {
@@ -8,15 +8,24 @@
     color: #2a5887;
 }
 
-.form-group input[type="text"],
-.form-group input[type="date"],
-.form-group input[type="number"],
-.form-group textarea {
+.form-group input {
     width: 97%;
-    padding: 10px;
+    height: 22px;
+    padding: 5px 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f3f3f3;
+    font-size: 16px;
+}
+
+.form-group select {
+    background-color: #f3f3f3;
+    height: 34px;
+    font-size: 16px;
+}
+
+.form-group option {
+    font-size: 16px;
 }
 
 .form-group textarea {
@@ -38,7 +47,8 @@
 }
 
 .button-group {
-    text-align: center;
+    margin-top: 40px;
+    text-align: left;
 }
 
 .button-group button {
@@ -46,12 +56,12 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #0056b3;
+    background-color: #2d893b;
     color: white;
     font-size: 16px;
     font-weight: 600;
 }
 
 .button-group button:hover {
-    background-color: #003a78;
+    background-color: #2b6c35;
 }

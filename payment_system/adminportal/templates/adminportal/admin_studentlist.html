@@ -3,27 +3,6 @@
 <link rel="stylesheet" href="{% static 'css/admin/admin_studentslist.css' %}" />
 {% endblock %} {% block content %}
 <div class="content">
-  <h3>Import Student Records</h3>
-  <div class="contain">
-    <form id="studentform" enctype="multipart/form-data">
-      <div class="form-group" style="margin-bottom: 15px;">
-        <label for="another_course">Select Course to Import&ensp;:</label>
-        <select id="another_course" name="choice">
-          <option value="empty">Select Course</option>
-        </select>
-      </div>
-      <div class="form-group-upload">
-        <label for="fileInput">Upload Excel File&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</label>
-        <input type="file" id="fileInput" name="file" accept=".xls, .xlsx" />
-      </div>
-      <div class="button-group-upload">
-        <button id="submitButton">Import</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<div class="content">
   <h3>List of Students</h3>
   <div class="contain">
     <form id="studentDetails">
@@ -47,6 +26,27 @@
 
       <tbody id="table-body"></tbody>
     </table>
+  </div>
+</div>
+
+<div class="content">
+  <h3>Import Student Records</h3>
+  <div class="contain">
+    <form id="studentform" enctype="multipart/form-data">
+      <div class="form-group" style="margin-bottom: 15px;">
+        <label for="another_course">Select Course to Import&ensp;:</label>
+        <select id="another_course" name="choice">
+          <option value="empty">Select Course</option>
+        </select>
+      </div>
+      <div class="form-group-upload">
+        <label for="fileInput">Upload Excel File&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</label>
+        <input type="file" id="fileInput" name="file" accept=".xls, .xlsx" />
+      </div>
+      <div class="button-group-upload">
+        <button id="submitButton">Import</button>
+      </div>
+    </form>
   </div>
 </div>
 
@@ -77,44 +77,46 @@
   //for getting registered student data.
 
   document
-    .getElementById("studentDetails")
-    .addEventListener("submit", function (event) {
-      event.preventDefault();
-      const form = document.getElementById("studentDetails");
-      const data = new FormData(form);
-      fetch("/adm/studentData/", {
-        method: "POST",
-        body: data,
-      })
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          if (data == null) {
-            alert("Students are not registered for this course");
-            return;
-          }
-          tbody = document.getElementById("table-body");
+  .getElementById("studentDetails")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+    const form = document.getElementById("studentDetails");
+    const data = new FormData(form);
+    fetch("/adm/studentData/", {
+      method: "POST",
+      body: data,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data == null) {
+          alert("Students are not registered for this course");
+          return;
+        }
+        const tbody = document.getElementById("table-body");
 
-          console.log(data);
+        console.log(data);
 
-          tbody.innerHTML = "";
-          data.forEach((element) => {
-            row = document.createElement("tr");
+        tbody.innerHTML = ""; // Clear the existing table body
 
-            row.innerHTML = `
-            <td>${element.student_ID}</td>
-            <td style="width: 300px; text-align: left; padding: 0 10px">${element.name}</td>
-            <td style="width: 200px">${element.phone}</td>
-            <td style="width: 350px; text-align: left; padding: 0 10px">${element.email}</td>`;
+        data.forEach((element) => {
+          // Create a new row and set its innerHTML with <tr> and <td> tags
+          const rowHTML = `
+            <tr>
+              <td>${element.student_ID}</td>
+              <td style="width: 300px; text-align: left; padding: 0 10px">${element.name}</td>
+              <td style="width: 200px">${element.phone}</td>
+              <td style="width: 350px; text-align: left; padding: 0 10px">${element.email}</td>
+            </tr>
+          `;
 
-            tbody.appendChild(row);
-          });
-        })
-        .catch((error) => {
-          console.log(error);
+          // Insert the new row HTML into the tbody
+          tbody.insertAdjacentHTML('beforeend', rowHTML);
         });
-    });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
 
   //To get the course details from the backend.
   addEventListener("DOMContentLoaded", () => {

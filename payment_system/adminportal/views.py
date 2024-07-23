@@ -8,6 +8,7 @@ from django.db import connection
 from .models import Computer_Science_and_Engineering
 from .models import Information_Science_and_Engineering
 from .models import Course, Fees_details
+from django.contrib.auth.hashers import make_password
 
 Model_Mapping = {
     'CSE01': Computer_Science_and_Engineering,
@@ -74,6 +75,17 @@ def payment_history(request):
     }
     return render(request, 'adminportal/admin_paymenthistory.html', context)
 
+
+# profile & settings
+
+def adm_profile(request):
+    context = {
+        'current_date': datetime.now().strftime('%d-%m-%Y'),
+        'name' : request.session['name'],
+    }
+    return render(request, 'adminportal/admin_profile.html', context)
+
+
 # API that sends course details -> The course that are present in the college.
 
 
@@ -112,41 +124,42 @@ def addStudent(request):
         excel_file = request.FILES['file']
         df = pd.read_excel(BytesIO(excel_file.read()), engine='openpyxl')
 
-        a = len(course_code)-2
+        a = len(course_code) - 2
         cnt = 1
 
         for index, row in df.iterrows():
-
             value = row['student_ID']
 
             if value == ' ':
                 return JsonResponse({'message': 'Student_ID is empty'}, status=400)
 
             for i in range(a):
-                if course_code[i] != value[i+2]:
+                if course_code[i] != value[i + 2]:
                     return JsonResponse({'message': 'Student_ID did not match with course'}, status=400)
 
-            if int(value[2+a:]) != cnt:
-                return JsonResponse({'message': 'Student_ID are not continouse'}, status=400)
-            cnt = cnt+1
+            if int(value[2 + a:]) != cnt:
+                return JsonResponse({'message': 'Student_ID are not continuous'}, status=400)
+            cnt = cnt + 1
 
             if row['name'] == ' ' or row['email'] == ' ' or row['password'] == ' ' or row['phone'] == ' ':
-                return JsonResponse({'message': 'Fiels cannot be empty'},  status=400)
+                return JsonResponse({'message': 'Fields cannot be empty'}, status=400)
 
             tble_name = Model_Mapping.get(course_code)
 
             with connection.cursor() as cursor:
-                cursor.execute(
-                    f'TRUNCATE TABLE {tble_name._meta.db_table};')
+                cursor.execute(f'TRUNCATE TABLE {tble_name._meta.db_table};')
 
+            # Hash the password before inserting into the database
             for index, row in df.iterrows():
+                hashed_password = make_password(row['password'])
                 tble_name.objects.create(
                     student_ID=row['student_ID'],
                     name=row['name'],
                     email=row['email'],
-                    password=row['password'],
+                    password=hashed_password,
                     phone=int(row['phone'])
                 )
+
             return JsonResponse({'message': 'Details are uploaded successfully'}, status=200)
 
 

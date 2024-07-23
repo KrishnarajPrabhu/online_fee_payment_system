@@ -2,6 +2,8 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
+    background: #ffffff;
+
 }
 
 .container {
@@ -40,7 +42,6 @@ body {
 }
 
 .nav-row img {
-    margin-left: 5px;
     padding-left: 10px;
     height: 25px;
     filter: invert(91%) sepia(8%) saturate(2817%) hue-rotate(183deg) brightness(104%) contrast(100%);
@@ -58,8 +59,9 @@ body {
 .nav-row:hover {
     transform: scale(1.05);
     transition: transform ease 0.4s;
-    background-color: #ffffff;
+    background-color: #f2faff;
     border-radius: 10px;
+    width: 100%;
 }
 
 .nav-row:hover img {
@@ -91,20 +93,20 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
-    margin-right: 10px;
+   /* margin-right: 10px;*/
 }
 
 .collar {
-    background: #002a61;
+    background: #1d4a86;
+    color: #f9f9ff;
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 60px;
     user-select: none;
-    margin: 10px 0 0 10px;
+    margin: 10px;
     border-radius: 10px;
-    color: #f0f0ff;
-    box-shadow: 0 2px 6px #a8a2ca;
+    box-shadow: 0 2px 6px #8580a1;
 }
 
 .left-sec {
@@ -113,7 +115,7 @@ body {
 }
 
 .left-sec h2 {
-    margin-left: 30px;
+    padding-left: 20px;
 }
 
 .right-sec {
@@ -126,11 +128,71 @@ body {
     font-weight:600;
 }
 
-.content {
-    width: 98%;
-    margin: 10px 0 0 20px;
-    padding-bottom: 20px;
+.content-out {
+    margin-left: 30px;
     flex: 1 1 auto; 
     overflow-y: auto; 
     overflow-x: auto;
 }
+
+.content {
+    width: 98%;
+    padding-bottom:20px;
+    flex: 1 1 auto; 
+    overflow-y: auto; 
+    overflow-x: auto;
+    font-weight: 600;
+    color: #4372ab;
+    margin: 20px 0 50px;
+    border: 2px solid #739ed2;
+    background-color: #fcfcfc;
+}
+
+
+.content h3 {
+    margin-top: 0;
+    margin-right: 0;
+    background-color: #5a91c8;
+    color: #ffffff;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    border-radius: 0px;
+}
+table {
+    width: 95%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 16px;
+    margin: 0 auto;
+}
+
+table th {
+    border: 2px solid #c7d8cd;
+    background-color: #069d4a;
+    padding: 0 10px;
+    height: 40px;
+    text-align: center;
+    color: #fff;
+}
+
+table tbody {
+    background-color: #f8fffc;
+}
+
+table tbody tr:hover {
+    background-color: #e8f2ea;
+}
+
+table td {
+    border: 2px solid #c8dbcd;
+    text-align: center;
+    color: #556f6a;
+    height: 36px;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+
+

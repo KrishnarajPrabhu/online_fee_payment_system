@@ -4,7 +4,7 @@ from django.db import models
 class login(models.Model):
     name = models.CharField(max_length=50, blank=True)
     email = models.EmailField(max_length=50)
-    password = models.CharField(max_length=50)
+    password = models.CharField(max_length=200)
     phone = models.BigIntegerField(blank=True, default=0)
 
     def __str__(self):
@@ -15,7 +15,7 @@ class Computer_Science_and_Engineering(models.Model):
     student_ID = models.CharField(max_length=50, primary_key=True)
     name = models.CharField(max_length=50)
     email = models.EmailField(max_length=50)
-    password = models.CharField(max_length=50)
+    password = models.CharField(max_length=200)
     phone = models.BigIntegerField()
 
     def __str__(self):
@@ -27,7 +27,7 @@ class Information_Science_and_Engineering(models.Model):
     student_ID = models.CharField(max_length=50, primary_key=True)
     name = models.CharField(max_length=50)
     email = models.EmailField(max_length=50)
-    password = models.CharField(max_length=50)
+    password = models.CharField(max_length=200)
     phone = models.BigIntegerField()
 
     def __str__(self):

@@ -56,10 +56,20 @@
           </div>
         </div>
 
-        <div class="content">{% block content %} {% endblock %}</div>
+        <div class="content-out">{% block content %}{% endblock %}</div>
       </div>
     </div>
 
     <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+    <script>
+      window.addEventListener("pageshow", function (event) {
+        if (
+          event.persisted ||
+          (window.performance && window.performance.navigation.type === 2)
+        ) {
+          window.location.reload();
+        }
+      });
+    </script>
   </body>
 </html>

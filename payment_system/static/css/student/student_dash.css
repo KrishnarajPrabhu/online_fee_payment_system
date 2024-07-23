@@ -1,76 +1,24 @@
-.display-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    font-size: 16px;
-}
-
-.display-table th, .display-table td {
-    border: 2px solid #cccccc;
-    padding: 10px;
-    text-align: center;
-}
-
-.display-table th {
-    background-color: #238226;
-    color: #ffffff;
-}
-
-.display-table td {
-    background-color: #f3f3f3;
-    color: #333333;
-}
-
 .pay-button button {
     cursor: pointer;
-    background-color: #009879;
+    background-color: #00af5a;
     color: white;
-    padding: 5px 25px;
-    font-size: 1em;
+    padding: 5px 10px;
+    font-size: 0.9em;
+    font-weight: 600;
     border: none;
     border-radius: 2px;
-    transition: background-color 0.3s ease;
+}
+.pay-button p{
+    margin: 0;
+    font-weight: 600;
+    color: #00af5a;
 }
 
 .pay-button button:hover {
     background-color: #007f65;
 }
 
-.account-profile {
-    padding: 20px;
-    border: 2px solid #238226; /* Green border */
-    border-radius: 8px; /* Rounded corners */
-    background-color: #f3f3f3; /* Light gray background */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
-    margin-top: 30px;
-}
 
-.account-profile p {
-    margin: 8px 0;
-    font-size: 1.1em;
-    color: black;
-    padding: 5px; 
-}
-
-.account-profile p:first-child {
-    font-weight: bold; 
-}
-
-.account-profile hr {
-    border: 0;
-    height: 1px;
-    background-color: #cccccc; 
-    margin: 10px 0;
-}
-
-.content h3 {
-    margin-top: 0;
-    margin-right: 0;
-    background-color: #5a91c8;
-    color: #ffffff;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    padding-left: 10px;
-    border-radius: 5px;
+.content {
+    overflow: hidden; 
 }

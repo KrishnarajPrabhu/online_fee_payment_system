@@ -37,13 +37,15 @@
           <img src="{% static 'images/history.png' %}" alt="logo" />
           <a class="nav" href="{% url 'payment_history' %}">Payment History</a>
         </div>
+        <!--
         <div class="nav-row">
           <img src="{% static 'images/queries.png' %}" alt="logo" />
           <a class="nav" href="#">Queries</a>
         </div>
+        -->
         <div class="nav-row">
           <img src="{% static 'images/acc_settings.png' %}" alt="logo" />
-          <a class="nav" href="#">Profile & Settings</a>
+          <a class="nav" href="{% url 'adm_profile' %}">Profile & Settings</a>
         </div>
         <div class="nav-row">
           <img src="{% static 'images/logout.png' %}" alt="logo" />
@@ -79,6 +81,18 @@
         ) {
           window.location.reload();
         }
+      });
+
+      //To add the active class on clicking nav row
+      document.addEventListener('DOMContentLoaded', function () {
+        const navLinks = document.querySelectorAll('.nav-row a');
+    
+        navLinks.forEach(link => {
+            link.addEventListener('click', function () {
+                navLinks.forEach(link => link.parentElement.classList.remove('active'));
+                this.parentElement.classList.add('active');
+            });
+        });
       });
     </script>
   </body>

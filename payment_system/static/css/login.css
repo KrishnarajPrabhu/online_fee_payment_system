@@ -78,7 +78,7 @@ h1 {
 
 .login-icon {
     width: 16px;
-    filter: invert(10%) sepia(3%) saturate(5000%) hue-rotate(150deg) brightness(100%) contrast(130%);
+    filter: invert(3%) sepia(3%) saturate(4000%) hue-rotate(150deg) brightness(100%) contrast(130%);
 }
 
 input {

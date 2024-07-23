@@ -7,32 +7,33 @@
   <div class="contain">
     <form action="{% url 'payment_setup' %}" method="post">
       {% csrf_token %}
-      <!-- <div class="form-group">
-        <label>Select Course(s)</label>
-        <div class="checkbox-group" id="course_list"></div>
-      </div> -->
-      <select id="course_list" name="choice">
-        <option value="empty">Select Course</option>
-      </select>
       <div class="form-group">
-        <label for="feeName">Fee Item Name</label>
-        <input type="text" id="feeName" name="feeName" />
+        <label>Select Course:</label>
+        <select style="width: 320px;" id="course_list" name="choice">
+          <option value="empty">Select Course</option>
+        </select>
+      </div> 
+      <div class="form-group">
+        <label for="feeName">Fee Item Name:</label>
+        <input style="width: 300px;" type="text" id="feeName" name="feeName" />
       </div>
-      <div class="form-group">
+      <!--<div class="form-group">
         <label for="description">Description</label>
         <textarea id="description" name="description" rows="4"></textarea>
-      </div>
+      </div>-->
       <div class="form-group">
-        <label for="amount">Amount</label>
-        <input type="number" id="amount" name="amount" step="0.01" />
+        <label for="amount">Amount (INR):</label>
+        <input style="width: 150px;" type="number" id="amount" name="amount" step="0.01" />
       </div>
-      <div class="form-group">
-        <label for="startDate">Start Date</label>
-        <input type="date" id="startDate" name="startDate" />
-      </div>
-      <div class="form-group">
-        <label for="dueDate">Due Date</label>
-        <input type="date" id="dueDate" name="dueDate" />
+      <div class="date-div">
+        <div class="form-group">
+          <label for="startDate">Start Date:</label>
+          <input style="width: 150px;" type="date" id="startDate" name="startDate" />
+        </div>
+        <div class="form-group">
+          <label for="dueDate">Due Date:</label>
+          <input style="width: 150px;" type="date" id="dueDate" name="dueDate" />
+        </div>
       </div>
       <div class="button-group">
         <button type="submit">Create Link</button>
@@ -44,7 +45,12 @@
 <script>
   document.addEventListener("DOMContentLoaded", (event) => {
     const today = new Date().toISOString().split("T")[0];
-    document.getElementById("startDate").value = today;
+    const startDateInput = document.getElementById("startDate");
+    const dueDateInput = document.getElementById("dueDate");
+    startDateInput.value = today;
+    startDateInput.min = today;
+    startDateInput.readOnly = true; 
+    dueDateInput.min = today;
   });
 
   //To get course details
@@ -69,16 +75,3 @@
   });
 </script>
 {% endblock %}
-
-<!-- <label
-            ><input type="checkbox" name="course" value="course1" /> Course
-            1</label
-          >
-          <label
-            ><input type="checkbox" name="course" value="course2" /> Course
-            2</label
-          >
-          <label
-            ><input type="checkbox" name="course" value="course3" /> Course
-            3</label
-          > -->
