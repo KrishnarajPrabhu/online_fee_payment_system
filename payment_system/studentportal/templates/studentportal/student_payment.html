@@ -1,18 +1,11 @@
-{% extends 'studentportal/student_base.html' %} {% load static%} {% block head%}
+{% extends 'studentportal/student_base.html' %} {% load static %} {%block head%}
 <title>Student - Payment History</title>
 <link rel="stylesheet" href="{% static 'css/student/student_payment.css' %}" />
 {% endblock %} {% block content %}
 <div class="content">
-  <div class="account-profile">
-    <p>Student ID:</p>
-    <p>Name:</p>
-    <p>Course:</p>
-  </div>
-</div>
-<div class="content">
-  <h3 style="margin-top: 70px">Payment History</h3>
-  <div>
-    <table class="display-table">
+  <h3>Payment History</h3>
+  <div class="contain">
+    <table>
       <thead>
         <tr>
           <th>Transaction ID</th>
@@ -25,6 +18,7 @@
     </table>
   </div>
 </div>
+
 <script>
   addEventListener("DOMContentLoaded", () => {
     fetch("/stu/student-transaction-detail/")

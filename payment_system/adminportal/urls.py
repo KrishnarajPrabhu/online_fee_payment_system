@@ -17,5 +17,5 @@ urlpatterns = [
 
     # URL to create a table to store the fees details of a respective class
     # use CSE01 for computer science and engineering and ISE02 for information science and engineering
-    path('paiddetails/<str:value>/', views.Paid_details, name='Paid_details')
+    path('paiddetails/', views.Paid_details, name='Paid_details')
 ]

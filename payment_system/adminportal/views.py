@@ -9,6 +9,7 @@ from .models import Computer_Science_and_Engineering
 from .models import Information_Science_and_Engineering
 from .models import Course, Fees_details
 from django.contrib.auth.hashers import make_password
+import json
 
 Model_Mapping = {
     'CSE01': Computer_Science_and_Engineering,
@@ -21,7 +22,7 @@ Model_Mapping = {
 def adm_dashboard(request):
     context = {
         'current_date': datetime.now().strftime('%d-%m-%Y'),
-        'name' : request.session['name'],
+        'name': request.session['name'],
     }
     return render(request, 'adminportal/admin_dash.html', context)
 
@@ -31,7 +32,7 @@ def adm_dashboard(request):
 def student_list(request):
     context = {
         'current_date': datetime.now().strftime('%d-%m-%Y'),
-        'name' : request.session['name'],
+        'name': request.session['name'],
     }
     return render(request, 'adminportal/admin_studentlist.html', context)
 
@@ -55,13 +56,13 @@ def payment_setup(request):
             status=0
         )
         context = {
-        'current_date': datetime.now().strftime('%d-%m-%Y'),
-        'name' : request.session['name'],
-    }
+            'current_date': datetime.now().strftime('%d-%m-%Y'),
+            'name': request.session['name'],
+        }
         return render(request, 'adminportal/admin_paymentsetup.html', context)
     context = {
         'current_date': datetime.now().strftime('%d-%m-%Y'),
-        'name' : request.session['name'],
+        'name': request.session['name'],
     }
     return render(request, 'adminportal/admin_paymentsetup.html', context)
 
@@ -71,7 +72,7 @@ def payment_setup(request):
 def payment_history(request):
     context = {
         'current_date': datetime.now().strftime('%d-%m-%Y'),
-        'name' : request.session['name'],
+        'name': request.session['name'],
     }
     return render(request, 'adminportal/admin_paymenthistory.html', context)
 
@@ -81,7 +82,7 @@ def payment_history(request):
 def adm_profile(request):
     context = {
         'current_date': datetime.now().strftime('%d-%m-%Y'),
-        'name' : request.session['name'],
+        'name': request.session['name'],
     }
     return render(request, 'adminportal/admin_profile.html', context)
 
@@ -165,25 +166,46 @@ def addStudent(request):
 
 # This are funtionality that are related to payment.
 
-def Paid_details(request, value):
-    # course_code = request.POST.get('choice')
-    course_code = value
-    table_name = course_code+"_FD"
+@csrf_exempt
+def Paid_details(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        payment_id = data.get('paymentId')
+        payment_data = Fees_details.objects.get(id=payment_id)
+        course_code = payment_data.course_id
+        payment_description = payment_data.description
+        table_name = course_code+"_FD"
 
-    with connection.cursor() as cursor:
-        query = f'select count(*) from information_schema.tables where table_name="{table_name}"'
-        print(query)
-        cursor.execute(query)
-        if cursor.fetchone()[0] == 1:
+        print("I am called!")
+
+        with connection.cursor() as cursor:
+
+            print("Gm mahesh!")
+
+            query = f'select count(*) from information_schema.tables where table_name="{table_name}"'
+            cursor.execute(query)
+
+            if cursor.fetchall()[0][0] == 0:
+
+                print("Hello world")
+                tble_name = Model_Mapping.get(course_code)
+                student_ID = tble_name.objects.values_list(
+                    'student_ID', flat=True)
+                columns = ['Id int primary key, description varchar(255)']
+                columns.extend(
+                    [f'{student_id} varchar(255)' for student_id in student_ID])
+                create_table_sql = f'create table {table_name} ({", ".join(columns)})'
+                cursor.execute(create_table_sql)
+                query = f"insert into {table_name} (Id, description) values ({payment_id}, '{payment_description}');"
+                print(query)
+                cursor.execute(query)
+                cursor.execute(
+                    f'update {Fees_details._meta.db_table} set status=1 where id={payment_id};')
+            else:
+                print("Gm")
+                query = f"insert into {table_name} (Id, description) values ({payment_id}, '{payment_description}');"
+                print(query)
+                cursor.execute(query)
+                cursor.execute(
+                    f'update {Fees_details._meta.db_table} set status=1 where id={payment_id};')
             return JsonResponse("The course already started!", safe=False)
-
-    tble_name = Model_Mapping.get(value)
-    student_ID = tble_name.objects.values_list('student_ID', flat=True)
-    columns = ['Id int primary key, description varchar(255)']
-    columns.extend([f'{student_id} varchar(255)' for student_id in student_ID])
-    create_table_sql = f'create table {table_name} ({", ".join(columns)})'
-    print(create_table_sql)
-    with connection.cursor() as cursor:
-        cursor.execute(f'DROP TABLE IF EXISTS {table_name}')
-        cursor.execute(create_table_sql)
-    return JsonResponse("Table is successfully created", safe=False)

@@ -1,10 +1,7 @@
-{% extends 'adminportal/admin_base.html' %} 
-{% load static %} 
-{% block head %}
+{% extends 'adminportal/admin_base.html' %} {% load static %} {% block head %}
 <title>Dashboard</title>
 <link rel="stylesheet" href="{% static 'css/admin/admin_dash.css' %}" />
-{% endblock %} 
-{% block content %}
+{% endblock %} {% block content %}
 <div class="content">
   <h3>Payment Links Dashboard</h3>
   <div class="contain">
@@ -32,126 +29,73 @@
           <th>Status</th>
         </tr>
       </thead>
-      <tbody id="tableBody">
-        <script>
-          //const paymentLinks = {{ payment_links|safe }}; paymentLinks to be sent as context from view
-          const paymentLinks = [
-              { id: 1, feeName: "Tuition Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 1000.00, applied: true },
-              { id: 2, feeName: "Library Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 200.00 },
-              { id: 3, feeName: "Sports Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 150.00 },
-              { id: 4, feeName: "Lab Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 300.00, applied: true },
-              { id: 5, feeName: "Hostel Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 500.00 },
-              { id: 6, feeName: "Exam Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 250.00 },
-              { id: 7, feeName: "Tuition Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 1000.00 },
-              { id: 8, feeName: "Library Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 200.00 },
-              { id: 9, feeName: "Tuition Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 1000.00 },
-              { id: 10, feeName: "Library Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 200.00 },
-              { id: 11, feeName: "Sports Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 150.00 },
-              { id: 12, feeName: "Lab Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 300.00 },
-              { id: 13, feeName: "Hostel Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 500.00 },
-              { id: 14, feeName: "Exam Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 250.00 },
-              { id: 15, feeName: "Tuition Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 1000.00 },
-              { id: 16, feeName: "Library Fee", course:"CSE", startDate: "08-07-2024", dueDate: "31-07-2024", amount: 200.00 },
-          ];
-      
-          function updateTable() {
-              const rowsToShow = document.getElementById('rowsToShow').value;
-              const tableBody = document.getElementById('tableBody');
-              tableBody.innerHTML = '';
-      
-              let rows = paymentLinks;
-              if (rowsToShow !== 'all') {
-                  rows = paymentLinks.slice(0, Number(rowsToShow));
-              }
-      
-              rows.forEach((link, index) => {
-                  const row = document.createElement('tr');
-                  row.innerHTML = `
-                      <td><a href="payment_details.html?id=${link.id}">${index + 1}</a></td>
-                      <td><a href="payment_details.html?id=${link.id}" style="text-align: left; padding: 0 10px;">${link.feeName}</a></td>
-                      <td><a href="payment_details.html?id=${link.id}" style="text-align: left; padding: 0 10px;">${link.course}</a></td>
-                      <td><a href="payment_details.html?id=${link.id}">${link.startDate}</a></td>
-                      <td><a href="payment_details.html?id=${link.id}">${link.dueDate}</a></td>
-                      <td><a href="payment_details.html?id=${link.id}" style="text-align: right; padding: 0 10px;">${link.amount.toFixed(2)}</a></td>
-                      <td>
-                        ${link.applied? 
-                          `<div class="apply-button"><p>Applied</p></div>` : 
-                          `<div class="apply-button">
-                            <form action="#" method="#">
-                                <button type="submit" onclick="return confirm('Are you sure you want to apply the payment item to students?')">Apply</button>
-                            </form>
-                          </div>`
-                        }
-                      </td>
-                  `;
-                  tableBody.appendChild(row);
-              });
-          }
-      
-          document.addEventListener('DOMContentLoaded', updateTable);
-        </script>
-      </tbody>
+      <tbody id="tableBody"></tbody>
     </table>
   </div>
 </div>
-{% endblock %}
 
-
-
-
-      <!--
-      <tbody id="tableBody"></tbody>
-    </table>
-
-    <script>
-      let paymentLinks = "";
-
-      addEventListener("DOMContentLoaded", () => {
-        fetch("/adm/getfeesassigned/")
-          .then((response) => {
-            return response.json();
-          })
-          .then((data) => {
-            paymentLinks = data;
-            updateTable();
-          });
+<script>
+  let payment = "";
+  addEventListener("DOMContentLoaded", () => {
+    fetch("/adm/getfeesassigned/")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        payment = data;
+        updateTable();
       });
+  });
 
-      function updateTable() {
-        const rowsToShow = document.getElementById("rowsToShow").value;
-        const tableBody = document.getElementById("tableBody");
-        tableBody.innerHTML = "";
+  function updateTable() {
+    const rowsToShow = document.getElementById("rowsToShow").value;
+    const tableBody = document.getElementById("tableBody");
+    tableBody.innerHTML = "";
 
-        let rows = paymentLinks;
-        if (rowsToShow !== "all") {
-          rows = paymentLinks.slice(0, Number(rowsToShow));
-        }
+    let rows = payment;
+    if (rowsToShow !== "all") {
+      rows = payment.slice(0, Number(rowsToShow));
+    }
 
-        rows.forEach((data, link) => {
-          const row = document.createElement("tr");
-          row.innerHTML = `
-                          <td><a href="payment_details.html?id=${link.id}">${data.id}</a></td>
-                          <td><a href="payment_details.html?id=${link.id}" style="text-align: left; padding: 0 10px;">${data.description}</a></td>
-                          <td><a href="payment_details.html?id=${link.id}" style="text-align: left; padding: 0 10px;">${data.course_id}</a></td>
-                          <td><a href="payment_details.html?id=${link.id}">${data.start_date}</a></td>
-                          <td><a href="payment_details.html?id=${link.id}">${data.end_date}</a></td>
-                          <td><a href="payment_details.html?id=${link.id}" style="text-align: right; padding: 0 10px;">${data.amount.toFixed(2)}</a></td>
+    rows.forEach((data, link) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `<td style="text-align: left; padding: 0 10px;">${
+        data.id
+      }</td>
+                       <td style="text-align: left; padding: 0 10px;">${
+                         data.description
+                       }</td>
+                          <td> ${data.course_id}</td>
+                          <td>${data.start_date}</td>
+                          <td>${data.end_date}</td>
+                          <td style="text-align: right; padding: 0 10px;"> ${data.amount.toFixed(
+                            2
+                          )}</td>
                           <td>
-                            ${data.applied? 
-                              `<div class="apply-button"><p>Applied</p></div>` : 
-                              `<div class="apply-button">
-                                <form action="#" method="#">
-                                    <button type="submit" onclick="return confirm('Are you sure you want to apply the payment item to students?')">Apply</button>
-                                </form>
+                            ${
+                              data.status == 1
+                                ? `<div class="apply-button"><p>Applied</p></div>`
+                                : `<div class="apply-button">
+                                  <button type="submit" onclick=send(${data.id})>Apply</button>
                               </div>`
                             }
                           </td>
                         `;
-          tableBody.appendChild(row);
-        });
-      }
-    </script>
-  </div>
-</div>
--->
-      
+      tableBody.appendChild(row);
+    });
+  }
+
+  function send(value) {
+    alert("I am calld!");
+    const Id = value;
+
+    const response = fetch("/adm/paiddetails/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ paymentId: Id }),
+    });
+  }
+</script>
+{% endblock %}
