@@ -1,0 +1,107 @@
+{% extends 'adminportal/admin_base.html' %}
+{% load static %}
+{% block head %}
+<title>Dashboard</title>
+<link rel="stylesheet" href="{% static 'css/admin/admin_dash.css' %}" />
+{% endblock %}
+{% block content %}
+<div class="content">
+  <h3>Payment Links Dashboard</h3>
+  <div class="contain">
+    <div class="form-group">
+      <label for="rowsToShow">Show Rows:</label>
+      <select id="rowsToShow" name="rowsToShow" onchange="updateTable()" style="width: 70px;">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option value="50">50</option>
+        <option value="all">All</option>
+      </select>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 80px;">Sl. No</th>
+          <th style="width: 300px; text-align: left; padding-left: 10px">Fee Item Name</th>
+          <th style="width: 150px;">Course ID</th>
+          <th>Start Date</th>
+          <th>Due Date</th>
+          <th style="text-align: right">Amount (INR)</th>
+          <th style="width: 100px;">Status</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  let payment = [];
+  addEventListener("DOMContentLoaded", () => {
+    fetch("/adm/getfeesassigned/")
+      .then((response) => response.json())
+      .then((data) => {
+        payment = data;
+        updateTable();
+      });
+  });
+
+  function updateTable() {
+    const rowsToShow = document.getElementById("rowsToShow").value;
+    const tableBody = document.getElementById("tableBody");
+    tableBody.innerHTML = "";
+
+    let rows = payment;
+    if (rowsToShow !== "all") {
+      rows = payment.slice(0, Number(rowsToShow));
+    }
+
+    rows.forEach((data, index) => {
+      const formatDate = (dateStr) => {
+        const [year, month, day] = dateStr.split("-");
+        return `${day}-${month}-${year}`;
+      };
+
+      const row = document.createElement("tr");
+      row.innerHTML = `<td style="padding: 0 10px;"><a href="${data.status == 1 ? '/adm/paymentdetails/' + data.id : '/adm/editpaymentsetup/' + data.id}">${index + 1}</a></td>
+                       <td style="text-align: left; padding: 0 10px;"><a href="${data.status == 1 ? '/adm/paymentdetails/' + data.id : '/adm/editpaymentsetup/' + data.id}">${data.description}</a></td>
+                       <td><a href="${data.status == 1 ? '/adm/paymentdetails/' + data.id : '/adm/editpaymentsetup/' + data.id}">${data.course_id}</a></td>
+                       <td><a href="${data.status == 1 ? '/adm/paymentdetails/' + data.id : '/adm/editpaymentsetup/' + data.id}">${formatDate(data.start_date)}</a></td>
+                       <td><a href="${data.status == 1 ? '/adm/paymentdetails/' + data.id : '/adm/editpaymentsetup/' + data.id}">${formatDate(data.end_date)}</a></td>
+                       <td style="text-align: right; padding: 0 10px;"><a href="${data.status == 1 ? '/adm/paymentdetails/' + data.id : '/adm/editpaymentsetup/' + data.id}">${data.amount.toFixed(2)}</a></td>
+                       <td>
+                         ${
+                           data.status == 1
+                             ? `<div class="apply-button"><p>Applied</p></div>`
+                             : `<div class="apply-button">
+                                 <button type="submit" onclick="send(${data.id})">Apply</button>
+                               </div>`
+                         }
+                       </td>`;
+      tableBody.appendChild(row);
+    });
+  }
+
+  function send(value) {
+    alert("Payment Applied!");
+
+    fetch("/adm/paiddetails/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ paymentId: value }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          location.reload();
+        } else {
+          console.error("Failed to apply payment");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
+</script>
+{% endblock %}

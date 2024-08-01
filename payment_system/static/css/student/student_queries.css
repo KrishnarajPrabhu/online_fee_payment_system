@@ -1,0 +1,42 @@
+.query-section {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f9f9ff;
+    border: 2px solid #c7d8cd;
+    border-radius: 10px;
+}
+
+.query-section form {
+    display: flex;
+    flex-direction: column;
+}
+
+.query-section label {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #31527e;
+}
+
+.query-section textarea {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #c7d8cd;
+    border-radius: 5px;
+    resize: none;
+    background-color: #fcfcfc;
+}
+
+.query-section button {
+    margin-top: 15px;
+    padding: 10px 15px;
+    font-size: 18px;
+    color: #ffffff;
+    background-color: #069d4a;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.query-section button:hover {
+    background-color: #058d43;
+}

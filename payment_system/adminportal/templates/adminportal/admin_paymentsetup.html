@@ -1,0 +1,77 @@
+{% extends 'adminportal/admin_base.html' %} {% load static %} {% block head %}
+<title>Fee Payment Setup</title>
+<link rel="stylesheet" href="{% static 'css/admin/admin_paymentsetup.css' %}" />
+{% endblock %} {% block content %}
+<div class="content">
+  <h3>Payment Link Setup</h3>
+  <div class="contain">
+    <form action="{% url 'payment_setup' %}" method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <label>Select Course:</label>
+        <select style="width: 320px;" id="course_list" name="choice">
+          <option value="empty">Select Course</option>
+        </select>
+      </div> 
+      <div class="form-group">
+        <label for="feeName">Fee Item Name:</label>
+        <input style="width: 300px;" type="text" id="feeName" name="feeName" required/>
+      </div>
+      <!--<div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="4"></textarea>
+      </div>-->
+      <div class="form-group">
+        <label for="amount">Amount (INR):</label>
+        <input style="width: 150px;" type="number" id="amount" name="amount" step="0.01" required/>
+      </div>
+      <div class="date-div">
+        <div class="form-group">
+          <label for="startDate">Start Date:</label>
+          <input style="width: 150px;" type="date" id="startDate" name="startDate" required/>
+        </div>
+        <div class="form-group">
+          <label for="dueDate">Due Date:</label>
+          <input style="width: 150px;" type="date" id="dueDate" name="dueDate" required/>
+        </div>
+      </div>
+      <div class="button-group">
+        <button type="submit">Create Link</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", (event) => {
+    const today = new Date().toISOString().split("T")[0];
+    const startDateInput = document.getElementById("startDate");
+    const dueDateInput = document.getElementById("dueDate");
+    startDateInput.value = today;
+    startDateInput.min = today;
+    startDateInput.readOnly = true; 
+    dueDateInput.min = today;
+  });
+
+  //To get course details
+  addEventListener("DOMContentLoaded", () => {
+    fetch("/adm/getCourse/")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        let select_element = document.getElementById("course_list");
+
+        data.forEach((element) => {
+          let op = document.createElement("option");
+          op.value = element["course_ID"];
+          op.textContent = element["course_name"];
+          select_element.appendChild(op);
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,70 @@
+.account-settings, .password-change {
+    padding-top: 3px;
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+.readonly-field, .password-field {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+}
+
+.readonly-field label, .password-field label {
+    width: 150px;
+    font-weight: bold;
+    color: #354a81;
+}
+
+.readonly-field p {
+    margin: 0;
+    padding: 0;
+}
+
+.readonly-field input, .password-field input {
+    width: 40%;
+    margin-left: 10px;
+    padding: 8px;
+    background-color: #f0f4ff;
+    border: 1px solid #2c3e50;
+    border-radius: 5px;
+    color: #354a81;
+    font-size: 14px;
+}
+
+.password-field input {
+    cursor: auto;
+    font-size: 16px;
+}
+
+.password-change button {
+    padding: 10px 15px;
+    background-color: #069d4a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.password-change button:hover {
+    background-color: #058d43;
+}
+
+.password-wrapper {
+    position: relative;
+    width: 50%;
+}
+
+.message-success {
+    color: #3a8f33; 
+    margin: 20px 0 0 0;
+}
+
+.message-error {
+    color: #d24b4b; 
+    margin: 20px 0 0 0;
+}
+

@@ -1,0 +1,78 @@
+{% extends 'studentportal/student_base.html' %}
+{% load static %}
+{% block head %}
+<title>Student - Account Settings</title>
+<link rel="stylesheet" href="{% static 'css/student/student_settings.css' %}" />
+{% endblock %}
+{% block content %}
+<div class="message" style="display: flex; justify-content: center;">
+  {% if messages %}
+  {% for message in messages %}
+      <p class="{% if message.tags %}message-{{ message.tags }}{% endif %}" style="margin: 20px 0 0 0;">
+          {{ message }}
+      </p>
+  {% endfor %}
+{% endif %}
+</div>
+<div class="content">
+  <h3>Profile</h3>
+  <form id="stu-profile" method="post">
+    {% csrf_token %}
+    <div class="account-settings">
+      <div class="readonly-field">
+        <label>Name</label>
+        <p>:</p>
+        <input style="cursor: not-allowed;" type="text" id="name" value="{{ name }}" readonly />
+      </div>
+      <div class="readonly-field">
+        <label>USN</label>
+        <p>:</p>
+        <input style="cursor: not-allowed;" type="text" id="usn" value="{{ student_ID }}" readonly />
+      </div>
+      <div class="readonly-field">
+        <label>Email</label>
+        <p>:</p>
+        <input type="text" id="email" name="email" value="{{ email }}"/>
+      </div>
+      <div class="readonly-field">
+        <label>Phone No</label>
+        <p>:</p>
+        <input type="text" id="phoneno" name="phone" value="{{ phone }}"/>
+      </div>
+      <div class="password-change" style="padding: 0;"> 
+        <button class="button-group" name="profile_update" id="submit-stu-profile" onclick="return confirm('Are you sure you want to apply changes to your profile?')" style="width: 80px;">Save</button>
+        <button style="background: none; color: #7a7a7a; border: 2px solid #7a7a7a; margin-left: 20px; padding: 8px 15px;" type="button" onclick="cancelEdit()">Cancel</button>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="content" style="margin-top: 20px">
+  <h3>Change Password</h3>
+  <div class="password-change">
+    <form id="passwordChangeForm" method="post">
+      {% csrf_token %}
+      <div class="password-field">
+        <label>Old Password</label>
+        <p>:</p>
+        <input type="password" id="old_password" name="old_password" required />
+      </div>
+      <div class="password-field">
+        <label>New Password</label>
+        <p>:</p>
+        <input type="password" id="new_password" name="new_password" required />
+      </div>
+      <div class="password-field">
+        <label>Confirm Password</label>
+        <p>:</p>
+        <input type="password" id="reenter_password" name="reenter_password" required />
+      </div>
+      <button name="password_change" type="submit">Change Password</button>
+    </form>
+  </div>
+</div>
+<script>
+  function cancelEdit() {
+        location.reload();
+  }
+</script>
+{% endblock %}

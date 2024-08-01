@@ -1,0 +1,81 @@
+{% extends 'adminportal/admin_base.html' %} 
+{% load static %} 
+{% block head %}
+<title>Profile & Settings</title>
+<link rel="stylesheet" href="{% static 'css/admin/admin_profile.css' %}" />
+{% endblock %} 
+{% block content %}
+<div class="message" style="display: flex; justify-content: center;">
+    {% if messages %}
+        {% for message in messages %}
+            <p class="{% if message.tags %}message-{{ message.tags }}{% endif %}" style="margin: 20px 0 0 0;">
+                {{ message }}
+            </p>
+        {% endfor %}
+    {% endif %}
+</div>
+<div class='content'>
+    
+    <h3>Profile</h3>
+    <div class="contain">    
+        <form id="adm-profile" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" value="{{ name }}">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="{{ email }}">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone No:</label>
+                <input type="text" id="phone" name="phone" value="{{ phone }}">
+            </div>
+            <div style="display: flex; padding-top: 10px;">
+                <button class="button-group" name="profile_update" id="submit-adm-profile" onclick="return confirm('Are you sure you want to apply changes to your profile?')" style="width: 80px;">Save</button>
+                <button style="background: none; color: #7a7a7a; border: 2px solid #7a7a7a; margin-left: 20px;" type="button" onclick="cancelEdit()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class='content'>
+    <h3>Change Password</h3>
+    <div class="contain">
+        <form id="passwordChangeForm" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Old Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label>New Password:</label>
+                <input type="password" id="new_password" name="new_password" required>
+            </div>
+            <div class="form-group" style="margin-bottom: 30px;">
+                <label>Confirm Password:</label>
+                <input type="password" id="confirm_password" name="confirm_password" required>
+            </div>
+            <button class="button-group" name="password_change" style="width: 160px;">Change Password</button>
+        </form>
+    </div>
+</div>
+<div class="content">
+    <h3>Reset Database</h3>
+    <div class="contain">
+        <form id="dbResetForm" action="">
+            <div class="form-group" style="margin-bottom: 30px;">
+                <label>Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button style="width: 140px; background-color: #d24b4b;" class="button-group" type="submit-reset-db" onclick="return confirm('Are you sure you want to reset the database')">Reset Database</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function cancelEdit() {
+        location.reload();
+    }
+</script>
+{% endblock %}

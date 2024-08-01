@@ -1,0 +1,74 @@
+form .form-group,
+form .button-group{
+    display: inline-block;
+}
+
+.form-group label {
+    margin-right: 20px;
+}
+
+.form-group button{
+    height: 30px;
+    width: 80px;
+    border-style: none;
+    border-radius: 5px;
+    color: #ffffff;
+    background-color: #40b1d6;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.form-group-upload {
+    margin-bottom: 10px;
+}
+
+.form-group-upload label {
+    margin-right: 20px;
+}
+
+.form-group-upload input {
+    font-size: 14px;
+}
+
+.button-group-upload button {
+    margin-top: 10px                                                                                                                                                                                                                                                                                                                                                                                                                        ;
+    height: 30px;
+    width: 80px;                                                                                                                            
+    border-style: none;
+    border-radius: 5px;
+    color: #ffffff;
+    background-color: #459651;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/*td .edit-button {
+    height: 26px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:#55a26e;
+    margin: 0 12px;
+}
+
+.edit-button a {
+    text-decoration: none;
+    color: #f6f6f6;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.delete-button button {
+    cursor: pointer;
+    background-color: #d46767;
+    color: #f6f6f6;
+    height: 26px;
+    font-size: 1em;
+    border: none;
+    border-radius: 2px;
+}*/

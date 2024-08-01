@@ -1,0 +1,44 @@
+{% extends 'studentportal/student_base.html' %}
+{% load static %}
+{% block head %}
+    <title>Student - Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/student/student_queries.css' %}">
+{% endblock %}
+{% block content %}
+<h3>Query Section</h3>
+<div class="query-section">
+    <form action="" method="post">
+        <label for="query">Submit your query:</label>
+        <textarea id="query" name="query" rows="4" cols="50" required></textarea>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+</div>
+<!--<h3 style='margin-top:70px'>Submitted Queries</h3>
+<div class="content">
+    <table class="display-table">
+        <thead>
+            <tr>
+                <th>Query ID</th>
+                <th>Query</th>
+                <th>Submission Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>I am unable to access the online payment portal</td>
+                <td>13-07-2024</td>
+                <td>Pending</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Can I get a breakdown of my tuition fee for this semester?</td>
+                <td>14-07-2024</td>
+                <td>Resolved</td>
+            </tr>
+        </tbody>
+    </table>
+</div>-->
+{% endblock %}

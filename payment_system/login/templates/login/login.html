@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+  </head>
+
+  <body>
+    <div class="login-container">
+      <div class="inst-details">
+        <img class="logo" src="{% static 'images/logo.png' %}" alt="logo" />
+        <div class="inst-add">
+          <h3>VISHWA COACHING CENTRE</h3>
+          <h5>123 Learning Lane, Knowledge City, IN 45678</h5>
+          <h5>Phone: (555) 123-4567</h5>
+        </div>
+      </div>
+      <form
+        class="login-form"
+        action="{% url 'login_validation' %}"
+        method="post"
+      >
+        {% csrf_token %}
+        <h1>Login</h1>
+        <div class="form-group">
+          <div class="icon-input">
+            <span class="icon">
+              <img
+                class="login-icon"
+                src="{% static 'images/login-email.png' %}"
+                alt="email-icon"
+              />
+            </span>
+            <input
+              type="text"
+              id="email"
+              name="email"
+              placeholder="Email"
+              required
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="icon-input">
+            <span class="icon">
+              <img
+                class="login-icon"
+                src="{% static 'images/login-locked.png' %}"
+                alt="email-icon"
+              />
+            </span>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+              required
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <a href="#">Forgot Password?</a>
+          <br />
+          <button type="submit" value="submit">Login</button>
+          <div class="display-error">
+            {% if is_error %}
+            <p>{{error}}</p>
+            {% endif %}
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>

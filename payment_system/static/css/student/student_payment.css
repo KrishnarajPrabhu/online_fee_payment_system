@@ -1,0 +1,42 @@
+.pay-button button {
+    cursor: pointer;
+    background-color: #009879;
+    color: white;
+    padding: 5px 25px;
+    font-size: 1em;
+    border: none;
+    border-radius: 2px;
+    transition: background-color 0.3s ease;
+}
+
+.pay-button button:hover {
+    background-color: #007f65;
+}
+
+.account-profile {
+    padding: 20px;
+    border: 2px solid #238226; 
+    border-radius: 8px;
+    background-color: #f3f3f3; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    margin-top: 30px;
+}
+
+.account-profile p {
+    margin: 8px 0;
+    font-size: 1.1em;
+    color: black;
+    padding: 5px; 
+}
+
+.account-profile p:first-child {
+    font-weight: bold; 
+}
+
+.account-profile hr {
+    border: 0;
+    height: 1px;
+    background-color: #cccccc; 
+    margin: 10px 0;
+}
+

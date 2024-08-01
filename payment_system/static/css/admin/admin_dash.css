@@ -1,0 +1,33 @@
+.contain form .form-group,
+form .button-group{
+    display: inline-block;
+    color: #3a5a86;
+}
+
+table tbody tr a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.apply-button button{
+    cursor: pointer;
+    background-color: #00af5a;
+    color: white;
+    padding: 5px 10px;
+    font-size: 0.9em;
+    font-weight: 600;
+    border: none;
+    border-radius: 2px;
+}
+
+.apply-button button:hover {
+    transform: scale(1.02);
+    transition: transform ease 0.2s;
+}
+
+.apply-button p{
+    margin: 0;
+    font-weight: 600;
+    color: #00af5a;
+}

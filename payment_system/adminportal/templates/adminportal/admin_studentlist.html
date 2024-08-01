@@ -1,0 +1,153 @@
+{% extends 'adminportal/admin_base.html' %} {% load static %} {% block head %}
+<title>Search and Import Students</title>
+<link rel="stylesheet" href="{% static 'css/admin/admin_studentslist.css' %}" />
+{% endblock %} {% block content %}
+<div class="content">
+  <h3>List of Students</h3>
+  <div class="contain">
+    <form id="studentDetails">
+      <div class="form-group">
+        <label for="another_course">Select Course to Search&ensp;:</label>
+        <select id="course" name="choice">
+          <option value="empty">Select Course</option>
+        </select>
+        <button class="button-group" id="searchButton">Search</button>
+      </div>
+    </form>
+    <table>
+      <thead>
+        <tr>
+          <th>Student ID</th>
+          <th style="width: 300px; text-align: left; padding: 0 10px">Name</th>
+          <th style="width: 200px;">Phone</th>
+          <th style="width: 350px; text-align: left; padding: 0 10px">Email</th>
+        </tr>
+      </thead>
+
+      <tbody id="table-body">
+        <tr id="no-data-message">
+          <td colspan="4" style="text-align: center;">Select a Course to search</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="content">
+  <h3>Import Student Records</h3>
+  <div class="contain">
+    <form id="studentform" enctype="multipart/form-data">
+      <div class="form-group" style="margin-bottom: 15px;">
+        <label for="another_course">Select Course to Import&ensp;:</label>
+        <select id="another_course" name="choice">
+          <option value="empty">Select Course</option>
+        </select>
+      </div>
+      <div class="form-group-upload">
+        <label for="fileInput">Upload Excel File&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;:</label>
+        <input type="file" id="fileInput" name="file" accept=".xls, .xlsx" />
+      </div>
+      <div class="button-group-upload">
+        <button id="submitButton">Import</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  //For uploading student data into the backend.
+  document
+    .getElementById("studentform")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+      const form = document.getElementById("studentform");
+      const data = new FormData(form);
+      fetch("/adm/upload/", {
+        method: "POST",
+        body: data,
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          alert(data["message"]);
+          window.location.reload();
+        })
+        .catch((error) => {
+          alert(data["mesage"]);
+          window.location.reload();
+        });
+    });
+  //for getting registered student data.
+
+  document
+  .getElementById("studentDetails")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+    const form = document.getElementById("studentDetails");
+    const data = new FormData(form);
+    fetch("/adm/studentData/", {
+      method: "POST",
+      body: data,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const tbody = document.getElementById("table-body");
+        tbody.innerHTML = ""; // Clear the existing table body
+
+        if (data.length === 0) {
+          const noStudentsRow = document.createElement("tr");
+          noStudentsRow.innerHTML = '<td colspan="4" style="text-align: center;">No students available</td>';
+          tbody.appendChild(noStudentsRow);
+        } else {
+          data.forEach((element) => {
+            // Create a new row and set its innerHTML with <tr> and <td> tags
+            const rowHTML = `
+              <tr>
+                <td>${element.student_ID}</td>
+                <td style="width: 300px; text-align: left; padding: 0 10px">${element.name}</td>
+                <td style="width: 200px">${element.phone}</td>
+                <td style="width: 350px; text-align: left; padding: 0 10px">${element.email}</td>
+              </tr>
+            `;
+
+            // Insert the new row HTML into the tbody
+            tbody.insertAdjacentHTML('beforeend', rowHTML);
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
+
+  //To get the course details from the backend.
+  addEventListener("DOMContentLoaded", () => {
+    fetch("/adm/getCourse/")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        let select_element = document.getElementById("course");
+
+        data.forEach((element) => {
+          let op = document.createElement("option");
+          op.value = element["course_ID"];
+          op.textContent = element["course_name"];
+          select_element.appendChild(op);
+        });
+
+        let another_select_element = document.getElementById("another_course");
+        data.forEach((element) => {
+          let op = document.createElement("option");
+          op.value = element["course_ID"];
+          op.textContent = element["course_name"];
+          another_select_element.appendChild(op);
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
+</script>
+{% endblock %}

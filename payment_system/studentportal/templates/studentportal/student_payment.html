@@ -1,0 +1,48 @@
+{% extends 'studentportal/student_base.html' %} {% load static %} {%block head%}
+<title>Student - Payment History</title>
+<link rel="stylesheet" href="{% static 'css/student/student_payment.css' %}" />
+{% endblock %} {% block content %}
+<div class="content">
+  <h3>Payment History</h3>
+  <div class="contain">
+    <table>
+      <thead>
+        <tr>
+          <th>Sl. No.</th>
+          <th style="width: 350px; text-align: left; padding-left: 20px;">Particulars</th>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Transaction ID</th>
+        </tr>
+      </thead>
+      <tbody id="transaction-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  addEventListener("DOMContentLoaded", () => {
+    fetch("/stu/student-transaction-detail/")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        table_body = document.getElementById("transaction-body");
+        table_body.innerHTML = " ";
+
+        data.forEach((element, index) => {
+          let row = document.createElement("tr");
+
+          row.innerHTML = `<td style="width: 100px;">${index + 1}</td>
+          <td style="width: 350px; text-align: left; padding-left: 20px;">${element["description"]}</td>
+          <td style="width: 200px">${element["date"]}</td>
+          <td style="width: 150px">${element["amount"]}</td>
+          <td style="width: 250px">${element["transaction_id"]}</td>
+          `;
+
+          table_body.append(row);
+        });
+      });
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,40 @@
+.message-success {
+    color: #3a8f33; 
+    margin: 20px 0 0 0;
+}
+
+.message-error {
+    color: #d24b4b; 
+    margin: 20px 0 0 0;
+}
+
+.contain button{
+    height: 35px;
+    width: 80px;
+    border-style: none;
+    border-radius: 5px;
+    color: #ffffff;
+    background-color: #459651;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #2a5887;
+}
+
+.form-group input{
+    width: 300px;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f3f3f3;
+    font-size: 15px;
+}

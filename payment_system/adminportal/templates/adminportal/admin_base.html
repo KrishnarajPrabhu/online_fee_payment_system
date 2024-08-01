@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="{% static 'css/admin/admin_base.css' %}" />
+    {% block head %} {% endblock %}
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="navigation">
+        <div class="nav-logo">
+          <img class="logo" src="{% static 'images/logo.png' %}" alt="logo" />
+        </div>
+        <div class="nav-row">
+          <img src="{% static 'images/dashboard.png' %}" alt="logo" />
+          <a class="nav" href="{% url 'adm_dashboard' %}">Dashboard</a>
+        </div>
+        <div class="nav-row">
+          <img src="{% static 'images/students.png' %}" alt="logo" />
+          <a class="nav" href="{% url 'student_list' %}">Courses & Students</a>
+        </div>
+        <div class="nav-row">
+          <img src="{% static 'images/fee.png' %}" alt="logo" />
+          <a class="nav" href="{% url 'payment_setup' %}">Fee Payment Setup</a>
+        </div>
+        <div class="nav-row">
+          <img src="{% static 'images/history.png' %}" alt="logo" />
+          <a class="nav" href="{% url 'payment_history' %}">Payment History</a>
+        </div>
+        <!--
+        <div class="nav-row">
+          <img src="{% static 'images/queries.png' %}" alt="logo" />
+          <a class="nav" href="#">Queries</a>
+        </div>
+        -->
+        <div class="nav-row">
+          <img src="{% static 'images/acc_settings.png' %}" alt="logo" />
+          <a class="nav" href="{% url 'adm_profile' %}">Profile & Settings</a>
+        </div>
+        <div class="nav-row">
+          <img src="{% static 'images/logout.png' %}" alt="logo" />
+          <form class="logout" action="{% url 'do_logout' %}" method="post">
+            {% csrf_token %}
+            <button class="logout-btn" type="submit">Logout</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="out-nav">
+        <div class="collar">
+          <div class="left-sec">
+            <h2>Welcome, {{name}}</h2>
+          </div>
+          <div class="right-sec">
+            <p>Date: {{current_date}}</p>
+          </div>
+        </div>
+
+        <div class="content-out">{% block content %} {% endblock %}</div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+
+    <script>
+      //To handle page reload
+      window.addEventListener("pageshow", function (event) {
+        if (
+          event.persisted ||
+          (window.performance && window.performance.navigation.type === 2)
+        ) {
+          window.location.reload();
+        }
+      });
+
+      //To add the active class on clicking nav row
+      document.addEventListener('DOMContentLoaded', function () {
+        const navLinks = document.querySelectorAll('.nav-row a');
+    
+        navLinks.forEach(link => {
+            link.addEventListener('click', function () {
+                navLinks.forEach(link => link.parentElement.classList.remove('active'));
+                this.parentElement.classList.add('active');
+            });
+        });
+      });
+    </script>
+  </body>
+</html>

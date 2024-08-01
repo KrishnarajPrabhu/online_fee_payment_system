@@ -1,0 +1,185 @@
+{% extends 'adminportal/admin_base.html' %} 
+{% load static %} 
+{% block head %}
+<title>Fee Payment History</title>
+<link rel="stylesheet" href="{% static 'css/admin/admin_paymenthistory.css' %}"/>
+{% endblock %} 
+{% block content %}
+<div class="content">
+  <h3>Payment History</h3>
+  <div class="contain">
+    <form id="transaction-export">
+      <div class="form-group">
+        <label for="export">Export to PDF&ensp;:&ensp;</label>
+        <button class="button-group" id="export-to-pdf">Export</button>
+      </div>
+    </form>
+    <div class="filterData">
+      <div class="searchbyID">
+        <label for="searchId">Search:</label>
+        <input type="text" id="searchId" name="searchId" placeholder="Search by Student ID">
+      </div>
+      <div class="filterbyDate">  
+        <label for="startDate">Start Date:</label>
+        <input style="margin-right: 20px;" type="date" id="startDate" name="startDate">
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate">
+      </div>
+    </div>
+
+    <table id="paymentTable" style="margin-top: 10px;">
+      <thead>
+        <tr>
+          <th>Sl. No.</th>
+          <th style="width: 200px; text-align: left; padding: 0 5px;">Fee Item Name</th>
+          <th style="width: 100px;">Student ID</th>
+          <th style="width: 300px; text-align: left; padding: 0 5px;">Student Name</th>
+          <th style="width: 100px;">Course ID</th>
+          <th style="width: 100px;">Paid Date</th>
+          <th style="width: 80px; text-align: right; padding: 0 5px;">Amount</th>
+          <th style="width: 130px;">Transaction ID</th>
+          <th style="width: 120px;">Receipt No.</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+    <div style="display: flex; margin-top: 40px;">
+      <h4 style="margin: 0; font-size: 18px;">Total Amount:</h4><span style="margin-left: 10px; font-size: 18px;" id="totalAmount">0.00</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      const searchInput = document.getElementById("searchId");
+      const startDateInput = document.getElementById("startDate");
+      const endDateInput = document.getElementById("endDate");
+      const table = document.getElementById("paymentTable");
+      const totalAmountElem = document.getElementById("totalAmount");
+
+      // Sample data
+      const data = [
+          [1, "Tuition Fee", "STU001", "John Doe", "CSE101", "2024-07-01", 5000.00, "TXN12345", "RCPT001"],
+          [2, "Library Fee", "STU002", "Jane Smith", "CSE102", "2024-07-02", 300.00, "TXN12346", "RCPT002"],
+          [3, "Lab Fee", "STU003", "Mike Johnson", "CSE103", "2024-07-03", 700.00, "TXN12347", "RCPT003"],
+          [4, "Tuition Fee", "STU004", "Emily Davis", "CSE104", "2024-07-04", 5000.00, "TXN12348", "RCPT004"],
+          [5, "Library Fee", "STU005", "Chris Lee", "CSE105", "2024-07-05", 300.00, "TXN12349", "RCPT005"],
+          [6, "Lab Fee", "STU006", "Jessica Brown", "CSE106", "2024-07-06", 700.00, "TXN12350", "RCPT006"],
+          [7, "Tuition Fee", "STU007", "David Wilson", "CSE107", "2024-07-07", 5000.00, "TXN12351", "RCPT007"],
+          [8, "Library Fee", "STU008", "Amanda Taylor", "CSE108", "2024-07-08", 300.00, "TXN12352", "RCPT008"],
+          [9, "Lab Fee", "STU009", "Matthew Moore", "CSE109", "2024-07-09", 700.00, "TXN12353", "RCPT009"],
+          [10, "Tuition Fee", "STU010", "Laura Clark", "CSE110", "2024-07-10", 5000.00, "TXN12354", "RCPT010"]
+      ];
+
+      // Function to generate HTML for table rows
+      function generateTableRows(data) {
+          return data.map(row => {
+              return `
+                  <tr>
+                      <td>${row[0]}</td>
+                      <td style="width: 200px; text-align: left; padding: 0 5px">${row[1]}</td>
+                      <td style="width: 100px;">${row[2]}</td>
+                      <td style="width: 300px; text-align: left; padding: 0 5px">${row[3]}</td>
+                      <td style="width: 100px;">${row[4]}</td>
+                      <td style="width: 100px;">${row[5]}</td>
+                      <td style="width: 80px; text-align: right; padding: 0 5px">${row[6].toFixed(2)}</td>
+                      <td style="width: 130px;">${row[7]}</td>
+                      <td style="width: 120px;">${row[8]}</td>
+                  </tr>
+              `;
+          }).join('');
+      }
+
+      // Function to populate the table
+      function populateTable() {
+          const tbody = table.querySelector('tbody');
+          tbody.innerHTML = generateTableRows(data);
+          updateTotalAmount();  // Update total amount on page load
+      }
+
+      function updateTotalAmount() {
+          let totalAmount = 0;
+          const rows = table.querySelectorAll('tbody tr');
+          rows.forEach(row => {
+              if (row.style.display !== "none") {
+                  totalAmount += parseFloat(row.cells[6].textContent);
+              }
+          });
+          totalAmountElem.textContent = totalAmount.toFixed(2);
+      }
+
+      function filterTable() {
+          const searchId = searchInput.value.toLowerCase();
+          const startDate = startDateInput.value;
+          const endDate = endDateInput.value;
+
+          const rows = table.querySelectorAll('tbody tr');
+          rows.forEach(row => {
+              const studentId = row.cells[2].textContent.toLowerCase();
+              const paidDate = row.cells[5].textContent;
+
+              const matchesSearch = studentId.includes(searchId);
+              const matchesDate = (!startDate || paidDate >= startDate) && (!endDate || paidDate <= endDate);
+
+              row.style.display = (matchesSearch && matchesDate) ? "" : "none";
+          });
+          
+          updateTotalAmount();
+      }
+
+      searchInput.addEventListener("input", filterTable);
+      startDateInput.addEventListener("change", filterTable);
+      endDateInput.addEventListener("change", filterTable);
+
+      // Initialize table on page load
+      populateTable();
+  });
+</script>
+
+
+<!--
+<div class="content">
+  <h3>Payment History</h3>
+  <div class="contain">
+    <form id="transaction-export">
+      <div class="form-group">
+        <label for="export">Export to PDF&ensp;:</label>
+        <button class="button-group" id="export-to-pdf">Export</button>
+      </div>
+    </form>
+    <h4>Total Amount: 656556.65</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Sl. No.</th>
+          <th style="width: 200px; text-align: left; padding: 0 10px;">Fee Item Name</th>
+          <th style="width: 100px;">Student ID</th>
+          <th style="width: 300px; text-align: left; padding: 0 10px;">Student Name</th>
+          <th style="width: 100px;">Course ID</th>
+          <th style="width: 100px;">Paid Date</th>
+          <th style="width: 80px; text-align: right; padding: 0 10px;">Amount</th>
+          <th style="width: 130px;">Transaction ID</th>
+          <th style="width: 120px;">Receipt No.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td style="width: 200px; text-align: left; padding: 0 10px">Tuition Fee</td>
+          <td style="width: 100px;">SCSE001</td>
+          <td style="width: 300px; text-align: left; padding: 0 10px">Mahesha</td>
+          <td style="width: 100px;">CSE01</td>
+          <td style="width: 100px;">17-07-2024</td>
+          <td style="width: 80px; text-align: right; padding: 0 10px">15000.00</td>
+          <td style="width: 130px;">IWER8979555</td>
+          <td style="width: 120px;">QWERTT001</td>
+        </tr>
+      </tbody>
+    </table>
+    
+  </div>
+</div>
+-->
+{% endblock %}

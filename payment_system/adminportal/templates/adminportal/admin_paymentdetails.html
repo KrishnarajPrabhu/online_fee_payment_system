@@ -1,0 +1,82 @@
+{% extends 'adminportal/admin_base.html' %} {% load static %} {% block head %}
+<title>Fee Payment Details</title>
+<link rel="stylesheet" href="{% static 'css/admin/admin_paymentdetails.css' %}" />
+{% endblock %} {% block content %}
+<div class="content">
+    <h3>Fee Payment Details</h3>
+    <div class="contain">
+        <form id="transaction-export">
+            <div class="detail-group">
+              <label for="export">Export to PDF</label>
+              <p>:</p>
+              <button class="button-group" id="export-to-pdf">Export</button>
+            </div>
+        </form>
+        <div class="detail-group">
+            <label for="feeName">Fee Item Name</label>
+            <p>:</p>
+            <input style="width: 300px; margin-left: 10px;" type="text" id="feeName" name="feeName" readonly/>
+        </div> 
+        <div class="detail-parent">
+            <div class="detail-group">
+                <label for="course_name">Course ID</label>
+                <p>:</p>
+                <input style="width: 150px; margin-left: 10px;" value="course_name" readonly>
+            </div>
+            <div class="detail-group" style="margin-right: 200px;">
+                <label for="amount">Amount (INR)</label>
+                <p>:</p>
+                <input style="width: 150px; margin-left: 10px;" type="number" id="amount" name="amount" step="0.01" readonly/>
+            </div>
+        </div>
+        <div class="detail-parent">
+            <div class="detail-group">
+                <label for="startDate">Start Date</label>
+                <p>:</p>
+                <input style="width: 150px; margin-left: 10px;" type="date" id="startDate" name="startDate" readonly/>
+            </div>
+            <div class="detail-group" style="margin-right: 200px;">
+                <label for="dueDate">Due Date</label>
+                <p>:</p>
+                <input style="width: 150px; margin-left: 10px;" type="date" id="dueDate" name="dueDate" readonly/>
+            </div>
+        </div>
+
+        <table id="paymentTable" style="margin-top: 30px;">
+            <thead>
+                <tr>
+                    <th style="width: 150px;">Student ID</th>
+                    <th style="width: 300px; text-align: left; padding: 0 10px;">Student Name</th>
+                    <th style="width: 100px;">Paid Date</th>
+                    <th style="width: 160px;">Transaction ID</th>
+                    <th style="width: 150px;">Receipt No.</th>
+                    <th style="width: 150px;">Payment Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="width: 150px;">Student ID</td>
+                    <td style="width: 300px; text-align: left; padding: 0 10px;">Student Name</td>
+                    <td style="width: 100px;">Paid Date</td>
+                    <td style="width: 160px;">Transaction ID</td>
+                    <td style="width: 150px;">Receipt No.</td>
+                    <td style="width: 150px;">Payment Status</td>
+                </tr>
+                <tr>
+                    <td style="width: 150px;">Student ID</td>
+                    <td style="width: 300px; text-align: left; padding: 0 10px;">Student Name</td>
+                    <td style="width: 100px;">Paid Date</td>
+                    <td style="width: 160px;">Transaction ID</td>
+                    <td style="width: 150px;">Receipt No.</td>
+                    <td style="width: 150px;">Payment Status</td>
+                </tr>
+            </tbody>
+          </table>
+    </div>
+</div>
+
+<script>
+   
+</script>
+
+{% endblock %}

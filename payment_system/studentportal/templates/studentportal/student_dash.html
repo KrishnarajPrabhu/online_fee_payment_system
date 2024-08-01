@@ -1,0 +1,129 @@
+{% extends 'studentportal/student_base.html'%} {% load static %} {% block head%}
+<title>Student - Dashboard</title>
+<link rel="stylesheet" href="{% static 'css/student/student_dash.css' %}" />
+{% endblock %} 
+{% block content %}
+<div class="content">
+  <h3>Pending Payments</h3>
+  <table class="display-table">
+    <thead>
+      <tr>
+        <th>Sl No</th>
+        <th>Particulars</th>
+        <th>Date</th>
+        <th>Amount</th>
+        <th>Pay</th>
+      </tr>
+    </thead>
+    <tbody id="tble-body"></tbody>
+  </table>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+  //To display the pending fees
+  document.addEventListener("DOMContentLoaded", () => {
+    fetch("/stu/pending-fees/")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        populate_table(data);
+        add_event_listeners();
+      });
+  });
+
+  //This will populate the table rows.
+  function populate_table(data) {
+    table_body = document.getElementById("tble-body");
+
+    table_body.innerHTML = "";
+
+    data.forEach((element, index) => {
+      const endDate = new Date(element.end_date);
+      const formattedDate = endDate.toLocaleDateString("en-GB", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      });
+      row = document.createElement("tr");
+      unique_key = element.id;
+      row.setAttribute("data-payment-id", unique_key);
+
+      row.innerHTML = `
+             <td style="width: 100px">${index + 1}</td>
+             <td style="width: 200px; text-align: left; padding: 0 20px">${
+               element.description
+             }</td>
+             <td style="width: 200px">${formattedDate}</td>
+             <td style="width: 250px">${element.amount}</td>
+             <td style="width: 70px">
+             <div class="pay-button">
+                <button class="pay-btn"> Pay </button>
+            </div>
+          </td>`;
+      table_body.appendChild(row);
+    });
+  }
+
+  //This will add eventListerners to the pay button.
+  function add_event_listeners() {
+    //To send request to the backend.
+    document.querySelectorAll(".pay-btn").forEach((bt) => {
+      bt.addEventListener("click", async function (e) {
+        e.preventDefault();
+
+        const row = e.target.closest("tr");
+        const paymentId = row.getAttribute("data-payment-id");
+
+        const response = await fetch("/stu/get-payment-data/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ paymentId: paymentId }),
+        });
+
+        const data = await response.json();
+
+        Razerpay_Invoke(data);
+      });
+    });
+  }
+
+  //This function is used to invoke razerpay.
+  function Razerpay_Invoke(data) {
+    var options = {
+      // Enter the Key ID generated from the Dashboard
+      key: data.razorpay_merchant_key,
+
+      // Amount is in currency subunits.
+      // Default currency is INR. Hence,
+      // 50000 refers to 50000 paise
+      amount: data.razorpay_amount,
+      currency: data.currency,
+
+      // Your/store name.
+      name: "Dj Razorpay",
+
+      //adding notes field ->newly added from myside.
+      notes: {
+        student_ID: data.student_ID,
+        student_name: data.student_name,
+        student_email: data.student_email,
+        amount: data.amount,
+        paymentid: data.paymentid,
+        session_key: data.session_key,
+      },
+
+      // Pass the `id` obtained in the response of Step 1
+      order_id: data.razorpay_order_id,
+      callback_url: data.callback_url,
+    };
+    console.log(options);
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+    e.preventDefault();
+  }
+</script>
+{% endblock %}
